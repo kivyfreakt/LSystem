@@ -1,26 +1,34 @@
 #include <iostream>
+#include <fstream>
 #include <cmath>
 
 using namespace std;
+
+ofstream psfile ("output.ps");
 
 class Turtle {
   private:
     float x = 0;
     float y = 0;
-    int direction = 90;
+    unsigned int direction = 90;
     bool is_pen = false;
   public:
-    void pen_down(){
-      is_pen = true;
+    Turtle(){
+      psfile << "1 setlinewidth" << endl;
+      psfile << "1 setlinecap" << endl;
+      psfile << "1 setlinejoin" << endl;
+      psfile << "0 0 0 setrgbcolor"<< endl;
     }
 
-    void pen_up(){
-      is_pen = false;
-    }
+    void move(float distance){
+      float x1 = x + distance * cos(direction * M_PI / 180);
+      float y1 = y + distance * sin(direction * M_PI / 180);
 
-    void move(int distance){
-      float x1 = x + distance*cos(direction*PI_M/180);
-      float y1 = x + distance*sin(direction*PI_M/180);
+      if (is_pen)
+        draw_line(x, y, x1, y1);
+
+      x = x1;
+      y = y1;
     }
 
     void move_to(float x1, float y1){
@@ -51,4 +59,22 @@ class Turtle {
         direction=90;
       }
     }
+
+    void pen_down(){
+      is_pen = true;
+    }
+
+    void pen_up(){
+      is_pen = false;
+    }
+
+    void draw_line(float x, float y, float x1, float y1){
+      psfile << "newpath " << x << " " << y <<" moveto "<< x1 << " " << y1 <<" lineto stroke"<<endl;
+    }
+
+    ~Turtle(){
+      psfile << "showpage" <<endl;
+      psfile.close();
+    }
+
 };
