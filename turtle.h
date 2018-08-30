@@ -1,4 +1,3 @@
-#include <iostream>
 #include <fstream>
 #include <cmath>
 
@@ -13,11 +12,11 @@ class Turtle {
     unsigned int direction = 90;
     bool is_pen = false;
   public:
+
     Turtle(){
       psfile << "1 setlinewidth" << endl;
       psfile << "1 setlinecap" << endl;
       psfile << "1 setlinejoin" << endl;
-      psfile << "0 0 0 setrgbcolor"<< endl;
     }
 
     void move(float distance){
@@ -36,7 +35,7 @@ class Turtle {
       y = y1;
     }
 
-    void turn(int angle){
+    void turn(float angle){
       if (direction > 0){
         direction-=angle;
       }else{
@@ -70,6 +69,14 @@ class Turtle {
 
     void draw_line(float x, float y, float x1, float y1){
       psfile << "newpath " << x << " " << y <<" moveto "<< x1 << " " << y1 <<" lineto stroke"<<endl;
+    }
+
+    void color(double red, double green, double blue){
+      psfile << red << " " << green << " " << blue << " setrgbcolor"<< endl;
+    }
+
+    void color(int red, int green, int blue){
+      psfile << (float)red/255 << " " << (float)green/255 << " " << (float)blue/255 << " setrgbcolor"<< endl;
     }
 
     ~Turtle(){
