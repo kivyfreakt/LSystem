@@ -9,7 +9,7 @@ class Turtle {
   private:
     float x = 0;
     float y = 0;
-    unsigned int direction = 90;
+    float direction = 90;
     bool is_pen = false;
   public:
 
@@ -19,12 +19,14 @@ class Turtle {
       psfile << "1 setlinejoin" << endl;
     }
 
+    // --------------- Методы передвижения ---------------
+
     void move(float distance){
       float x1 = x + distance * cos(direction * M_PI / 180);
       float y1 = y + distance * sin(direction * M_PI / 180);
 
       if (is_pen)
-        draw_line(x, y, x1, y1);
+        draw_line(x1, y1);
 
       x = x1;
       y = y1;
@@ -59,6 +61,8 @@ class Turtle {
       }
     }
 
+    // --------------- Методы рисования ---------------
+
     void pen_down(){
       is_pen = true;
     }
@@ -67,7 +71,12 @@ class Turtle {
       is_pen = false;
     }
 
-    void draw_line(float x, float y, float x1, float y1){
+    void circle(float rad){
+      if(is_pen)
+        psfile << "newpath " << x << " " << y << " " << rad << " 0 360 arc stroke" << endl;
+    }
+
+    void draw_line(float x1, float y1){
       psfile << "newpath " << x << " " << y <<" moveto "<< x1 << " " << y1 <<" lineto stroke"<<endl;
     }
 
