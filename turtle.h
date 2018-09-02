@@ -41,31 +41,14 @@ class Turtle {
       y = y1;
     }
 
-    void turn(float angle){
+    void turn_right(float angle){
       /* Поворот черепахи в правую сторону на угол angle */
-      if (direction > 0){
         direction-=angle;
-      }else{
-        direction=360-angle;
-      }
     }
 
-    void turn_right(){
-      /* Поворот черепахи в правую сторону на 90 градусов */
-      if (direction > 0){
-        direction-=90;
-      }else{
-        direction=270;
-      }
-    }
-
-    void turn_left(){
-      /* Поворот черепахи в левую сторону на 90 градусов */
-      if (direction < 360){
-        direction+=90;
-      }else{
-        direction=90;
-      }
+    void turn_left(float angle){
+      /* Поворот черепахи в левую сторону на угол angle */
+        direction+=angle;
     }
 
     void reset(){
@@ -97,6 +80,18 @@ class Turtle {
        */
       if(is_pen)
         psfile << "newpath " << x << " " << y << " " << rad << " 0 360 arc stroke" << endl;
+    }
+
+    void circle(float rad, float angle){
+      /*  Рисует дугу радиуса rad с углом angle */
+      if(is_pen)
+        psfile << "newpath " << x << " " << y << " " << rad << " 0 " << angle << " arc stroke" << endl;
+    }
+
+    void circle(float rad, float start, float end){
+      /*  Рисует дугу радиуса rad от start до end */
+      if(is_pen)
+        psfile << "newpath " << x << " " << y << " " << rad << " " << start << " " << end << " arc stroke" << endl;
     }
 
     void draw_line(float x1, float y1){
