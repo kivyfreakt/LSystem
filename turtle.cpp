@@ -70,20 +70,24 @@ void Turtle::drawCircle(float rad){
   /*  Рисует круг радиуса rad с центром
    *  в месте, в котором стоит черепаха.
    */
-  if(pen)
+  if (pen)
     psfile << "newpath " << x << " " << y << " " << rad << " 0 360 arc stroke" << endl;
 }
 
 void Turtle::drawCircle(float rad, float angle){
   /*  Рисует дугу радиуса rad с углом angle */
-  if(pen)
-    psfile << "newpath " << x << " " << y << " " << rad << " 0 " << angle << " arc stroke" << endl;
+  if (pen){
+    if (angle > 0 && angle <= 360)
+      psfile << "newpath " << x << " " << y << " " << rad << " 0 " << angle << " arc stroke" << endl;
+  }
 }
 
 void Turtle::drawCircle(float rad, float start, float end){
   /*  Рисует дугу радиуса rad от start до end */
-  if(pen)
-    psfile << "newpath " << x << " " << y << " " << rad << " " << start << " " << end << " arc stroke" << endl;
+  if (pen){
+    if (start >= 0 && start < end && end >= 360)
+      psfile << "newpath " << x << " " << y << " " << rad << " " << start << " " << end << " arc stroke" << endl;
+  }
 }
 
 void Turtle::drawLine(float x1, float y1){
@@ -93,12 +97,16 @@ void Turtle::drawLine(float x1, float y1){
 
 void Turtle::setColor(double red, double green, double blue){
   /* Смена цвета пера черепахи  */
-  psfile << red << " " << green << " " << blue << " setrgbcolor"<< endl;
+  if (red <= 1 && green <= 1 && blue <= 1){
+    psfile << red << " " << green << " " << blue << " setrgbcolor"<< endl;
+  }
 }
 
 void Turtle::setColor(int red, int green, int blue){
   /* Смена цвета пера черепахи */
-  psfile << (float)red / 255 << " " << (float)green / 255 << " " << (float)blue / 255 << " setrgbcolor"<< endl;
+  if (red <= 255 && green <= 255 && blue <= 255) {
+    psfile << (float)red / 255 << " " << (float)green / 255 << " " << (float)blue / 255 << " setrgbcolor"<< endl;
+  }
 }
 
 void Turtle::setWidth(int width){
