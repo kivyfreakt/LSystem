@@ -1,9 +1,12 @@
 #include <string>
 #include <map>
+#include <fstream>
 
 using namespace std;
 
-class LSystem{
+ofstream end_file ("test_app.cpp");
+
+class LSystem {
   public:
     LSystem(string axiom, map<string,string>rul){
       condition = axiom;
@@ -11,15 +14,24 @@ class LSystem{
     }
 
     void iter(int n){
-      int i = 1;
+      int i = 0;
       while (i<=n) {
         for (map<string,string>::iterator it = rules.begin(); it != rules.end(); it++) {
           string s1 = (*it).first;
           string s2 = (*it).second;
-          replaceString(condition, s1, s2);
+          condition = replaceString(condition, s1, s2);
         }
+        i++;
       }
     }
+
+    void interpret(map<string,string> actions){
+        for (map<string,string>::iterator it = actions.begin(); it != actions.end(); it++) {
+          string s1 = (*it).first;
+          string s2 = (*it).second;
+          condition = replaceString(condition, s1, s2);
+        }
+      }
 
     string replaceString(string subject, const string& search,
                           const std::string& replace) {
@@ -31,9 +43,10 @@ class LSystem{
     return subject;
     }
 
-    // void interpret(){
-    //
-    // }
+    void getCondition(){
+      end_file << condition;
+    }
+
 
   private:
     string condition;
