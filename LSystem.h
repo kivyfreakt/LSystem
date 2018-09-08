@@ -6,11 +6,13 @@ using namespace std;
 
 ofstream end_file ("test_app.cpp");
 
-class LSystem {
+class LSystem{
   public:
     LSystem(string axiom, map<string,string>rul){
       condition = axiom;
       rules = rul;
+
+      end_file << "#include'turtle.cpp' \nTurtle turtle; \nint main(){\nturtle.penDown();\nturtle.moveto(500,500);\n";
     }
 
     void iter(int n){
@@ -47,6 +49,9 @@ class LSystem {
       end_file << condition;
     }
 
+    ~LSystem(){
+      end_file << "return 0;\n}";
+    }
 
   private:
     string condition;
