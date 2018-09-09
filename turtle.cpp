@@ -26,11 +26,14 @@ void Turtle::move(float distance){
   float x1 = x + distance * cos(direction * M_PI / 180);
   float y1 = y + distance * sin(direction * M_PI / 180);
 
+  setPictureSize();
+
   if (pen)
     drawLine(x1, y1);
 
   // устанавливаем новые координаты черепахи
   moveto(x1, y1);
+  setPictureSize();
 }
 
 void Turtle::turnRight(float angle){
@@ -114,8 +117,21 @@ void Turtle::setWidth(int width){
   psfile << width << " setlinewidth" << endl;
 }
 
+void Turtle::setPictureSize(){
+  /* Изменение размера итоговой картинки */
+  picture_size[0][0] = min(picture_size[0][0], x-width/2);
+  picture_size[0][1] = min(picture_size[0][1], y-width/2);
+  picture_size[1][0] = max(picture_size[1][0], x+width/2);
+  picture_size[1][1] = max(picture_size[1][1], y+width/2);
+}
+
 Turtle::~Turtle(){
   /* Деконструктор */
   psfile << "showpage" <<endl;
+  psfile.seekp(0, std::ios::beg);
+  psfile << "%!PS-Adobe-3.0 EPSF-3.0\n";
+  psfile << "%%BoundingBox: "<< round(picture_size[0][0]) << " " << round(picture_size[0][1]) << " " << round(picture_size[1][0]) << " " << round(picture_size[1][1]) << "\n";
+  psfile << "%%HiResBoundingBox: "<< picture_size[0][0] << " " << picture_size[0][1] << " " << picture_size[1][0] << " " << picture_size[1][1] << "\n";
+  psfile << "%%EndComments" <<endl;
   psfile.close(); // закрываем файл
 }

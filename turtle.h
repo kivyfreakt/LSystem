@@ -21,6 +21,7 @@ class Turtle{
     void setColor(double, double, double);
     void setColor(int, int, int);
     void setWidth(int);
+    void setPictureSize();
     ~Turtle();
 
   private:
@@ -28,4 +29,6 @@ class Turtle{
     float y = 0.0; // координата черепахи в оси y
     double direction = 90.0;  // положение головы черепахи в пространстве( в градусах )
     bool pen = false; // опущенно ли перо черепахи или нет
+    unsigned short int width = 1; // толщина линии
+    float picture_size[2][2] = {{1000, 1000}, {0,0}}; // размеры изображения
 };
