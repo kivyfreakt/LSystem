@@ -11,7 +11,7 @@ int main() {
 
   turtle.turnRight(30);
   for (int i = 0; i < 3; i++) {
-    draw_koch(200, 3);
+    draw_koch(500, 3);
     turtle.turnRight(120);
   }
   return 0;
