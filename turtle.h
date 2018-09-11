@@ -1,7 +1,15 @@
 class Turtle{
   public:
     Turtle();
-
+    // --------------- Геттеры и сеттеры ---------------
+    float getCoord(short);
+    void setCoords(float, float);
+    float getDirection();
+    void setDirection(float);
+    int getWidth();
+    void setWidth(int);
+    bool getPen();
+    void setPen(bool);
     // --------------- Методы передвижения ---------------
 
     void moveto(float, float);
@@ -20,7 +28,6 @@ class Turtle{
     void drawLine(float, float);
     void setColor(double, double, double);
     void setColor(int, int, int);
-    void setWidth(int);
     void setPictureSize();
     ~Turtle();
 
