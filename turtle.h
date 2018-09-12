@@ -1,3 +1,5 @@
+#include <stack>
+
 class Turtle{
   public:
     Turtle();
@@ -10,12 +12,15 @@ class Turtle{
     void setWidth(int);
     bool getPen();
     void setPen(bool);
+
     // --------------- Методы передвижения ---------------
 
     void moveto(float, float);
     void move(float);
     void turnRight(float);
     void turnLeft(float);
+    void save();
+    void restore();
     void reset();
 
     // --------------- Методы рисования ---------------
@@ -34,8 +39,9 @@ class Turtle{
   private:
     float x = 0.0; // координата черепахи в оси x
     float y = 0.0; // координата черепахи в оси y
-    double direction = 90.0;  // положение головы черепахи в пространстве( в градусах )
+    float direction = 90.0;  // положение головы черепахи в пространстве( в градусах )
     bool pen = false; // опущенно ли перо черепахи или нет
     unsigned short int width = 1; // толщина линии
+    stack <float> save_stack; // стек для сохранения координат
     float picture_size[2][2] = {{1000, 1000}, {0,0}}; // размеры изображения
 };

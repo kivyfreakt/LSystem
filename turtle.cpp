@@ -84,6 +84,22 @@ void Turtle::turnLeft(float angle){
     setDirection(getDirection()+angle);
 }
 
+void Turtle::save(){
+  save_stack.push(getCoord(0));
+  save_stack.push(getCoord(1));
+  save_stack.push(getDirection());
+}
+
+void Turtle::restore(){
+  setDirection(save_stack.top());
+  save_stack.pop();
+  float nx = save_stack.top();
+  save_stack.pop();
+  float ny = save_stack.top();
+  save_stack.pop();
+  setCoords(nx, ny);
+}
+
 void Turtle::reset(){
   /* Возвращяет черепаху в исходное положение */
   x = 0.0;
