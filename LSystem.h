@@ -8,7 +8,7 @@ ofstream end_file ("test_app.cpp");
 
 class LSystem{
   public:
-    LSystem(string axiom, map<string,string>rul){
+    LSystem(string axiom, map<char,string>rul){
       condition = axiom;
       rules = rul;
 
@@ -18,21 +18,25 @@ class LSystem{
     void iter(int n){
       int i = 0;
       while (i<=n) {
-        for (map<string,string>::iterator it = rules.begin(); it != rules.end(); it++) {
-          string s1 = (*it).first;
-          string s2 = (*it).second;
-          condition = replaceString(condition, s1, s2);
+        string new_cond;
+        for (int j = 0; j < condition.size(); j++) {
+          if(rules.find(condition[j]) != rules.end())
+            new_cond += rules[condition[j]];
+          else
+            new_cond +=  condition[j];
         }
+          condition = new_cond;
         i++;
       }
     }
 
-    void interpret(map<string,string> actions){
-        for (map<string,string>::iterator it = actions.begin(); it != actions.end(); it++) {
-          string s1 = (*it).first;
-          string s2 = (*it).second;
-          condition = replaceString(condition, s1, s2);
+    void interpret(map<char,string> actions){
+        string new_cond;
+        for (int j = 0; j < condition.size(); j++) {
+          if(actions.find(condition[j]) != actions.end())
+            new_cond += actions[condition[j]];
         }
+          condition = new_cond;
       }
 
     string replaceString(string subject, const string& search,
@@ -55,5 +59,5 @@ class LSystem{
 
   private:
     string condition;
-    map<string,string> rules;
+    map<char,string> rules;
 };

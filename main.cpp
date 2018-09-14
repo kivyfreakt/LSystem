@@ -4,12 +4,12 @@
 
 using namespace std;
 
-map<string, string> a = {{"F", "F-F++F-F"}};
-map<string, string> b = {{"F", "turtle.move(5);\n"}, {"+", "turtle.turnRight(60);\n"}, {"-", "turtle.turnLeft(60);\n"}};
+map<char, string> a = {{'A', "B-A-B"}, {'B', "A+B+A"}};
+map<char, string> b = {{'A', "turtle.move(1);\n"}, {'B', "turtle.move(1);\n"}, {'+', "turtle.turnLeft(60);\n"}, {'-', "turtle.turnRight(60);\n"}};
 
 int main() {
-  LSystem lsystem("F++F++F",a);
-  lsystem.iter(2);
+  LSystem lsystem("A",a);
+  lsystem.iter(6);
   lsystem.interpret(b);
   lsystem.getCondition();
   return 0;

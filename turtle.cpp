@@ -102,8 +102,7 @@ void Turtle::restore(){
 
 void Turtle::reset(){
   /* Возвращяет черепаху в исходное положение */
-  x = 0.0;
-  y = 0.0;
+  setCoords(0.0, 0.0);
   setDirection(90.0);
 }
 
