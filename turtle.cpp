@@ -93,9 +93,9 @@ void Turtle::save(){
 void Turtle::restore(){
   setDirection(save_stack.top());
   save_stack.pop();
-  float nx = save_stack.top();
-  save_stack.pop();
   float ny = save_stack.top();
+  save_stack.pop();
+  float nx = save_stack.top();
   save_stack.pop();
   setCoords(nx, ny);
 }
