@@ -1,6 +1,4 @@
-#include "LSystem.h"
-#include <string>
-#include <map>
+#include "LSystem.cpp"
 
 using namespace std;
 
@@ -11,6 +9,5 @@ int main() {
   LSystem lsystem("F-G-G",a);
   lsystem.iter(5);
   lsystem.interpret(b);
-  lsystem.getCondition();
   return 0;
 }
