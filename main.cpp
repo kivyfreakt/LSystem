@@ -11,6 +11,5 @@ int main() {
   LSystem lsystem("A",a);
   lsystem.iter(6);
   lsystem.interpret(b);
-  lsystem.getCondition();
   return 0;
 }
