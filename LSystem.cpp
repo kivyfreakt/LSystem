@@ -1,19 +1,11 @@
-#include <fstream>
-#include <libconfig.h++>
-
-using namespace std;
-using namespace libconfig;
-
-ofstream end_file ("test_app.cpp");
-
 #include "LSystem.h"
 
-LSystem::LSystem(){
-    end_file << "#include \"turtle.cpp\" \nTurtle turtle; \nint main(){\nturtle.penDown();\nturtle.moveto(500,500);\n";
-    config();
+LSystem::LSystem(string axiom, map<char,string> rul):condition(axiom), rules(rul){
+    penDown();
+    moveto(0,0);
 }
 
-void LSystem::iter(){
+void LSystem::iter(int iterations){
     int i = 0;
     while (i<=iterations) {
       string new_cond;
@@ -28,13 +20,19 @@ void LSystem::iter(){
     }
 }
 
-void LSystem::interpret(){
-    for (unsigned int j = 0, size = condition.size(); j < size ; ++j) {
-      if(actions.find(condition[j]) != actions.end())
-        end_file << actions[condition[j]];
+void LSystem::interpret(map<char,string> actions, float step, float angle){
+    for (unsigned int i = 0, size = condition.size(); i < size ; ++i) {
+      if(actions.find(condition[i]) != actions.end())
+          if ("move" == actions[condition[i]]){
+            move(step);
+          } else if ("turnLeft" == actions[condition[i]]){
+            turnLeft(angle);
+          } else if ("turnRight" == actions[condition[i]]){
+            turnRight(angle);
+          } else if ("save" == actions[condition[i]]){
+            save();
+          } else if ("restore" == actions[condition[i]]){
+            restore();
+          }
     }
-}
-
-LSystem::~LSystem(){
-    end_file << "return 0;\n}";
 }

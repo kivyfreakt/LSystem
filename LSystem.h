@@ -1,17 +1,14 @@
+#include "turtle.cpp"
 #include <string>
 #include <map>
-#include <fstream>
 
 using namespace std;
 
-ofstream end_file ("test_app.cpp");
-
-class LSystem{
+class LSystem : public Turtle{
   public:
     LSystem(string, map<char,string>);
     void iter(int);
-    void interpret(map<char,string>);
-    ~LSystem();
+    void interpret(map<char,string>, float, float);
   private:
     string condition;
     map<char,string> rules;

@@ -1,15 +1,18 @@
-#include "LSystem.h"
+#include "LSystem.cpp"
 #include <string>
 #include <map>
 
 using namespace std;
 
-map<char, string> a = {{'A', "B-A-B"}, {'B', "A+B+A"}};
-map<char, string> b = {{'A', "turtle.move(1);\n"}, {'B', "turtle.move(1);\n"}, {'+', "turtle.turnLeft(60);\n"}, {'-', "turtle.turnRight(60);\n"}};
+float step = 5;
+float angle = 120;
+map<char, string> rules = {{'F', "F-G+F+G-F"}, {'G', "GG"}};
+map<char, string> inter = {{'F', "move"}, {'G', "move"}, {'+', "turnLeft"}, {'-', "turnRight"}};
 
 int main() {
-  LSystem lsystem("A",a);
+  LSystem lsystem("F-G-G", rules);
+  lsystem.setColor(0,0,255);
   lsystem.iter(6);
-  lsystem.interpret(b);
+  lsystem.interpret(inter, step, angle);
   return 0;
 }
