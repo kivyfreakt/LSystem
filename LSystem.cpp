@@ -1,51 +1,37 @@
-#include <fstream>
-
-using namespace std;
-
-ofstream end_file ("test_app.cpp");
-
 #include "LSystem.h"
 
-LSystem::LSystem(string axiom, map<char,string>rul){
-    condition = axiom;
-    rules = rul;
-
-    end_file << "#include'turtle.cpp' \nTurtle turtle; \nint main(){\nturtle.penDown();\nturtle.moveto(500,500);\n";
+LSystem::LSystem(string axiom, map<char,string> rul):condition(axiom), rules(rul){
+    penDown();
 }
 
-void LSystem::iter(int n){
-  int i = 0;
-  while (i<=n) {
-    string new_cond;
-    for (int j = 0; j < condition.size(); j++) {
-      if(rules.find(condition[j]) != rules.end())
-        new_cond += rules[condition[j]];
-      else
-        new_cond +=  condition[j];
-    }
-      condition = new_cond;
-    i++;
-  }
-}
-
-void LSystem::interpret(map<char,string> actions){
-    string new_cond;
-    for (int j = 0; j < condition.size(); j++) {
-      if(actions.find(condition[j]) != actions.end())
-        end_file << actions[condition[j]];
+void LSystem::iter(int iterations){
+    int i = 0;
+    while (i<=iterations) {
+      string new_cond;
+      for (unsigned int j = 0, size = condition.size(); j < size ; ++j) {
+        if(rules.find(condition[j]) != rules.end())
+          new_cond += rules[condition[j]];
+        else
+          new_cond += condition[j];
+      }
+        condition = new_cond;
+      ++i;
     }
 }
 
-string LSystem::replaceString(string subject, const string& search,
-                      const std::string& replace) {
-    size_t pos = 0;
-    while ((pos = subject.find(search, pos)) != string::npos) {
-         subject.replace(pos, search.length(), replace);
-         pos += replace.length();
+void LSystem::interpret(map<char,string> actions, float step, float angle){
+    for (unsigned int i = 0, size = condition.size(); i < size ; ++i) {
+      if(actions.find(condition[i]) != actions.end())
+          if ("move" == actions[condition[i]]){
+            move(step);
+          } else if ("turnLeft" == actions[condition[i]]){
+            turnLeft(angle);
+          } else if ("turnRight" == actions[condition[i]]){
+            turnRight(angle);
+          } else if ("save" == actions[condition[i]]){
+            save();
+          } else if ("restore" == actions[condition[i]]){
+            restore();
+          }
     }
-    return subject;
-}
-
-LSystem::~LSystem(){
-  end_file << "return 0;\n}";
 }

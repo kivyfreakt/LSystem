@@ -1,16 +1,14 @@
+#include "turtle.cpp"
 #include <string>
 #include <map>
 
 using namespace std;
 
-class LSystem{
+class LSystem : public Turtle{
   public:
     LSystem(string, map<char,string>);
-    void iter(int n);
-    void interpret(map<char,string>);
-    string replaceString(string, const string&,const string&);
-    ~LSystem();
-
+    void iter(int);
+    void interpret(map<char,string>, float, float);
   private:
     string condition;
     map<char,string> rules;
