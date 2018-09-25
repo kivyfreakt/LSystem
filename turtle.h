@@ -1,9 +1,16 @@
+/*
+* A class of turtle that can move in the coordinate
+* system thanks to special commands that the user sets
+* The class is used to interpret the lsystem alphabet
+* into turtle drawing commands
+*/
+
 #include <stack>
 
 class Turtle{
   public:
     Turtle();
-    // --------------- Геттеры и сеттеры ---------------
+    // --------------- Getters and Setters ---------------
     float getCoord(short);
     void setCoords(float, float);
     float getDirection();
@@ -13,7 +20,7 @@ class Turtle{
     bool getPen();
     void setPen(bool);
 
-    // --------------- Методы передвижения ---------------
+    // --------------- Methods of movement ---------------
 
     void moveto(float, float);
     void move(float);
@@ -23,7 +30,7 @@ class Turtle{
     void restore();
     void reset();
 
-    // --------------- Методы рисования ---------------
+    // --------------- Drawing methods ---------------
 
     void penDown();
     void penUp();
@@ -37,11 +44,11 @@ class Turtle{
     ~Turtle();
 
   private:
-    float x = 0.0; // координата черепахи в оси x
-    float y = 0.0; // координата черепахи в оси y
-    float direction = 90.0;  // положение головы черепахи в пространстве( в градусах )
-    bool pen = false; // опущенно ли перо черепахи или нет
-    unsigned short int width = 1; // толщина линии
-    stack <float> save_stack; // стек для сохранения координат
-    float picture_size[2][2] = {{1000, 1000}, {0,0}}; // размеры изображения
+    float x = 0.0; // coordinate of the turtle to the x-axis
+    float y = 0.0; // coordinate of the turtle to the y-axis
+    float direction = 90.0;  // he position of the turtle's head in space( in degrees )
+    bool pen = false;
+    unsigned short int width = 1;
+    stack <float> save_stack; // stack to store coordinates
+    float picture_size[2][2] = {{1000, 1000}, {0,0}}; // image size
 };

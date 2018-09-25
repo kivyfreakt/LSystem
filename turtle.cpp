@@ -2,17 +2,17 @@
 #include <cmath>
 using namespace std;
 
-ofstream temp_file ("tmp.ps"); // временный файл для сохранения картинки
+ofstream temp_file ("tmp.ps"); // temporary file to save the image
 
 #include "turtle.h"
 
 Turtle::Turtle(){
-  /* Конструктор */
+  /* Class Constructor */
   temp_file << "1 setlinecap" << endl;
   temp_file << "1 setlinejoin" << endl;
 }
 
-// --------------- Геттеры и сеттеры ---------------
+// --------------- Getters and Setters ---------------
 float Turtle::getCoord(short coord) {
   if (coord == 0)
     return x;
@@ -38,7 +38,6 @@ int Turtle::getWidth() {
 }
 
 void Turtle::setWidth(int wd){
-  /* Изменяем ширину линии */
   width = wd;
   temp_file << wd << " setlinewidth" << endl;
 }
@@ -51,16 +50,16 @@ void Turtle::setPen(bool npen) {
   pen = npen;
 }
 
-// --------------- Методы передвижения ---------------
+// --------------- Methods of movement ---------------
 
 void Turtle::moveto(float x1, float y1){
-  /* Переместить черепаху в точку с координатами (x,y) */
+  /* Move the turtle to a point with coordinates (x,y) */
   setCoords(x1,y1);
 }
 
 void Turtle::move(float distance){
-  /* Проползти на distance шагов вперед */
-  // расчитываем новые координаты черепахи
+  /* Crawl distance steps forward */
+  // calculate the new coordinates of the turtle
   float x1 = getCoord(0) + distance * cos(getDirection() * M_PI / 180);
   float y1 = getCoord(1) + distance * sin(getDirection() * M_PI / 180);
 
@@ -69,18 +68,18 @@ void Turtle::move(float distance){
   if (getPen())
     drawLine(x1, y1);
 
-  // устанавливаем новые координаты черепахи
+  // set the new coordinates of the turtle
   setCoords(x1, y1);
   setPictureSize();
 }
 
 void Turtle::turnRight(float angle){
-  /* Поворот черепахи в правую сторону на угол angle */
+  /* Turn the turtle to the right side */
     setDirection(getDirection()-angle);
 }
 
 void Turtle::turnLeft(float angle){
-  /* Поворот черепахи в левую сторону на угол angle */
+  /* Turn the turtle to the left side */
     setDirection(getDirection()+angle);
 }
 
@@ -101,37 +100,35 @@ void Turtle::restore(){
 }
 
 void Turtle::reset(){
-  /* Возвращяет черепаху в исходное положение */
+  /* Returns the turtle to its original position */
   setCoords(0.0, 0.0);
   setDirection(90.0);
 }
 
-// --------------- Методы рисования ---------------
+// --------------- Drawing methods ---------------
 
 void Turtle::penDown(){
-  /* Опускает перо у черепашки, после чего
-   * она оставляет след при движении
+  /* Lowers the pen-the turtle, after which
+   * she leaves a trail when moving
    */
    setPen(true);
 }
 
 void Turtle::penUp(){
-  /* Поднимает перо у черепашки, после чего
-   * она перестает оставлять след при движении
+  /* Lifts the pen the turtle, after which
+   * it ceases to leave a trail when moving
    */
    setPen(false);
 }
 
 void Turtle::drawCircle(float rad){
-  /*  Рисует круг радиуса rad с центром
-   *  в месте, в котором стоит черепаха.
-   */
+  /*  Draw round with some radius */
   if (getPen())
     temp_file << "newpath " << getCoord(0) << " " << getCoord(1) << " " << rad << " 0 360 arc stroke" << endl;
 }
 
 void Turtle::drawCircle(float rad, float angle){
-  /*  Рисует дугу радиуса rad с углом angle */
+  /*  Draw an arc*/
   if (getPen()){
     if (angle > 0 && angle <= 360)
       temp_file << "newpath " << getCoord(0) << " " << getCoord(1) << " " << rad << " 0 " << angle << " arc stroke" << endl;
@@ -139,7 +136,7 @@ void Turtle::drawCircle(float rad, float angle){
 }
 
 void Turtle::drawCircle(float rad, float start, float end){
-  /*  Рисует дугу радиуса rad от start до end */
+  /*  Draw an arc from start point to end */
   if (getPen()){
     if (start >= 0 && start < end && end >= 360)
       temp_file << "newpath " << getCoord(0) << " " << getCoord(1) << " " << rad << " " << start << " " << end << " arc stroke" << endl;
@@ -147,19 +144,19 @@ void Turtle::drawCircle(float rad, float start, float end){
 }
 
 void Turtle::drawLine(float x1, float y1){
-  /* Рисует путь черепахи, если перо опущенно */
+  /* Draws the path of the turtle if the pen is omitted */
   temp_file << "newpath " << getCoord(0) << " " << getCoord(1) <<" moveto "<< x1 << " " << y1 <<" lineto stroke"<<endl;
 }
 
 void Turtle::setColor(double red, double green, double blue){
-  /* Смена цвета пера черепахи  */
+  /* Change the color of the turtle feather  */
   if (red <= 1 && green <= 1 && blue <= 1){
     temp_file << red << " " << green << " " << blue << " setrgbcolor"<< endl;
   }
 }
 
 void Turtle::setColor(int red, int green, int blue){
-  /* Смена цвета пера черепахи */
+  /* Change the color of the turtle feather */
   if (red <= 255 && green <= 255 && blue <= 255) {
     temp_file << (float)red / 255 << " " << (float)green / 255 << " " << (float)blue / 255 << " setrgbcolor"<< endl;
   }
@@ -167,7 +164,7 @@ void Turtle::setColor(int red, int green, int blue){
 
 
 void Turtle::setPictureSize(){
-  /* Изменение размера итоговой картинки */
+  /* Changing the size of the final image */
   picture_size[0][0] = min(picture_size[0][0], getCoord(0)-getWidth()/2);
   picture_size[0][1] = min(picture_size[0][1], getCoord(1)-getWidth()/2);
   picture_size[1][0] = max(picture_size[1][0], getCoord(0)+getWidth()/2);
@@ -175,18 +172,19 @@ void Turtle::setPictureSize(){
 }
 
 Turtle::~Turtle(){
-  /* Деконструктор */
+  /* Class Deconstructor */
   temp_file << "showpage" <<endl;
   temp_file.close();
   ifstream temp_file ("tmp.ps");
   ofstream output_file ("output.ps");
   output_file << "%!PS-Adobe-3.0 EPSF-3.0\n";
+  // set picture size
   output_file << "%%BoundingBox: "<< round(picture_size[0][0]) << " " << round(picture_size[0][1]) << " " << round(picture_size[1][0]) << " " << round(picture_size[1][1]) << "\n";
   output_file << "%%HiResBoundingBox: "<< picture_size[0][0] << " " << picture_size[0][1] << " " << picture_size[1][0] << " " << picture_size[1][1] << "\n";
   output_file << "%%EndComments" <<endl;
   output_file << temp_file.rdbuf();
-  // закрываем файлы
+  // close files
   temp_file.close();
   output_file.close();
-  remove("tmp.ps"); // удаляем временный файл
+  remove("tmp.ps"); // delete the temporary file
 }

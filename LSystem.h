@@ -1,3 +1,8 @@
+/*
+* The class that produces the development
+* of the lsystem in accordance with its rules.
+*/
+
 #include "turtle.cpp"
 #include <string>
 #include <map>
@@ -10,6 +15,6 @@ class LSystem : public Turtle{
     void iter(int);
     void interpret(map<char,string>, float, float);
   private:
-    string condition;
-    map<char,string> rules;
+    string condition; // condition of the lsystem
+    map<char,string> rules; // rules of the lsystem
 };
