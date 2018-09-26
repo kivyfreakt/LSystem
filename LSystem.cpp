@@ -1,11 +1,11 @@
 #include "LSystem.h"
 
-LSystem::LSystem(string axiom, map<char,string> rul):condition(axiom), rules(rul){
+LSystem::LSystem(string axiom, const map<char,string> &rul):condition(axiom), rules(rul){
     /* Class Constructor */
     penDown();
 }
 
-void LSystem::iter(int iterations){
+void LSystem::iter(const int &iterations){
     /* the development of the lsystem */
     int i = 0;
     while (i<=iterations) {
@@ -21,7 +21,7 @@ void LSystem::iter(int iterations){
     }
 }
 
-void LSystem::interpret(map<char,string> actions, float step, float angle){
+void LSystem::interpret(map<char,string> &actions, const float &step, const float &angle){
     /* interpretation of the alphabet in a certain action turtles */
     for (unsigned int i = 0, size = condition.size(); i < size ; ++i) {
       if(actions.find(condition[i]) != actions.end())

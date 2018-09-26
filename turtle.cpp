@@ -8,6 +8,7 @@ ofstream temp_file ("tmp.ps"); // temporary file to save the image
 
 Turtle::Turtle(){
   /* Class Constructor */
+  temp_file << "/seg { 4 2 roll newpath moveto lineto stroke } def" << endl;
   temp_file << "1 setlinecap" << endl;
   temp_file << "1 setlinejoin" << endl;
 }
@@ -145,7 +146,7 @@ void Turtle::drawCircle(float rad, float start, float end){
 
 void Turtle::drawLine(float x1, float y1){
   /* Draws the path of the turtle if the pen is omitted */
-  temp_file << "newpath " << getCoord(0) << " " << getCoord(1) <<" moveto "<< x1 << " " << y1 <<" lineto stroke"<<endl;
+  temp_file << getCoord(0) << " " << getCoord(1) << " " << x1 << " " << y1 <<" seg"<<endl;
 }
 
 void Turtle::setColor(double red, double green, double blue){

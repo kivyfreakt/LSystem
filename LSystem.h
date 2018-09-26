@@ -11,9 +11,9 @@ using namespace std;
 
 class LSystem : public Turtle{
   public:
-    LSystem(string, map<char,string>);
-    void iter(int);
-    void interpret(map<char,string>, float, float);
+    LSystem(string, const map<char,string> &);
+    void iter(const int &);
+    void interpret(map<char,string> &, const float &, const float &);
   private:
     string condition; // condition of the lsystem
     map<char,string> rules; // rules of the lsystem
