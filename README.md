@@ -7,14 +7,14 @@
 -   [What are L-Systems?](#description)
     - [Definition](#definition)
     - [Development](#development)
--   [How it works?](#howitworks)
-    - [LSystem class](#lsystemclass)
-    - [Turtle class](#turtleclass)
+-   [How it works?](#how-it-works)
+    - [LSystem class](#lsystem-class)
+    - [Turtle class](#turtle-class)
 -   [Examples](#examples)
     - [Plant](#plant)
-    - [Heighway dragon](#heighwaydragon)
-    - [Pleasant error](#pleasanterror)
-    - [Sierpinski triangle](#sierpinskitriangle)
+    - [Heighway dragon](#heighway-dragon)
+    - [Pleasant error](#pleasant-error)
+    - [Sierpinski triangle](#sierpinski-triangle)
 
 ---
 ## What are L-Systems?
