@@ -5,24 +5,19 @@
 
 #include "LSystem.cpp"
 #include <string>
-#include <iostream>
 #include <map>
-#include <ctime>
 
 using namespace std;
 
-const float step = 2;
-const float angle = 25;
-map<char, string> rules = {{'X', "F-[[X]+X]+F[+FX]-X"}, {'F', "FF"}};
-map<char, string> inter = {{'F', "move"}, {'+', "turnLeft"}, {'-', "turnRight"}, {'[', "save"}, {']', "restore"}};
+const float step = 3.0;
+const float angle = 120.0;
+map<char, string> rules = {{'F', "F-G+F+G-F"}, {'G', "GG"}};
+map<char, string> inter = {{'F', "move"}, {'+', "turnLeft"}, {'-', "turnRight"}, {'G', "move"}};
 
 int main() {
-  LSystem lsystem("X", rules);
-  // lsystem.setDirection(0);
+  LSystem lsystem("F-G-G", rules);
   lsystem.setColor(120, 168, 93);
   lsystem.iter(5);
-  lsystem.moveto(350,0);
   lsystem.interpret(inter, step, angle);
-  cout << clock()/1000.0 <<endl;
   return 0;
 }
