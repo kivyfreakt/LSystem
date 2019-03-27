@@ -5,6 +5,10 @@ LSystem::LSystem(string axiom, const map<char,string> &rul):condition(axiom), ru
     penDown();
 }
 
+void LSystem::addRule(char from, string to){
+  rules.emplace(from, to);
+}
+
 void LSystem::iter(const int &iterations){
     /* the development of the lsystem */
     int i = 0;

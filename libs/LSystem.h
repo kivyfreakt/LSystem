@@ -12,6 +12,7 @@ using namespace std;
 class LSystem : public Turtle{
   public:
     LSystem(string, const map<char,string> &);
+    void addRule(char, string);
     void iter(const int &);
     void interpret(map<char,string> &, const float &, const float &);
   private:
