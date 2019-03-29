@@ -42,22 +42,25 @@ string LSystem::getCondition(){
     return condition;
 }
 
-void LSystem::interpret(unordered_map<string,string> &actions, const float &step, const float &angle){
+void LSystem::interpret(const float &step, const float &angle){
     /* interpretation of the alphabet in a certain action turtles */
     for (unsigned int i = 0, size = condition.size(); i < size ; ++i) {
-      string cur;
-      cur += condition[i];
-      if(actions.find(cur) != actions.end())
-          if ("move" == actions[cur]){
-            move(step);
-          } else if ("turnLeft" == actions[cur]){
-            turnLeft(angle);
-          } else if ("turnRight" == actions[cur]){
-            turnRight(angle);
-          } else if ("save" == actions[cur]){
-            save();
-          } else if ("restore" == actions[cur]){
-            restore();
-          }
+      switch (condition[i]) {
+        case '+':
+          turnLeft(angle);
+        break;
+        case '-':
+          turnRight(angle);
+        break;
+        case '[':
+          save();
+        break;
+        case ']':
+          restore();
+        break;
+        default:
+          move(step);
+        break;
+      }
     }
 }
