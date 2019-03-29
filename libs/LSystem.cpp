@@ -1,31 +1,30 @@
 #include "LSystem.h"
 
-LSystem::LSystem(string axiom, const map<char,string> &rul):condition(axiom), rules(rul){
+LSystem::LSystem(string axiom, vector<LRule> &rul):condition(axiom), rules(rul){
     /* Class Constructor */
     penDown();
 }
 
-void LSystem::addRule(char from, string to){
-  rules.emplace(from, to);
-}
-
-void LSystem::iter(const int &iterations){
-    /* the development of the lsystem */
-    int i = 0;
-    while (i<=iterations) {
-      string new_cond;
-      for (unsigned int j = 0, size = condition.size(); j < size ; ++j) {
-        if(rules.find(condition[j]) != rules.end())
-          new_cond += rules[condition[j]];
-        else
-          new_cond += condition[j];
-      }
+void LSystem::iterate(const int &iterations = 1){
+    for (unsigned int i = 0; i <= iterations ; ++i){
+        string new_cond;
+        for (int j = 0; j < condition.size(); ++j){
+            char cur = condition[j];
+            string replacement;
+            replacement += cur;
+            for (int r = 0; r < rules.size(); ++r){
+                if(cur == rules[r].variable){
+                    replacement = rules[r].rule;
+                    break;
+                }
+            }
+            new_cond += replacement;
+          }
         condition = new_cond;
-      ++i;
     }
 }
 
-void LSystem::interpret(map<char,string> &actions, const float &step, const float &angle){
+void LSystem::interpret(unordered_map<char,string> &actions, const float &step, const float &angle){
     /* interpretation of the alphabet in a certain action turtles */
     for (unsigned int i = 0, size = condition.size(); i < size ; ++i) {
       if(actions.find(condition[i]) != actions.end())

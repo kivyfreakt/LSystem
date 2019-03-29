@@ -4,21 +4,24 @@
 */
 
 #include "libs/LSystem.cpp"
-#include <string>
-#include <map>
+#include <ctime>
+#include <iostream>
 
 using namespace std;
 
 const float step = 3.0;
 const float angle = 120.0;
-map<char, string> rules = {{'F', "F-G+F+G-F"}};
-map<char, string> inter = {{'F', "move"}, {'+', "turnLeft"}, {'-', "turnRight"}, {'G', "move"}};
+
+LRule F('F', "F-G+F+G-F");
+LRule G('G', "GG");
+
+vector<LRule> rules = {F,G};
+unordered_map<char, string> inter = {{'F', "move"}, {'+', "turnLeft"}, {'-', "turnRight"}, {'G', "move"}};
 
 int main() {
   LSystem sierpinski("F-G-G", rules);
-  sierpinski.addRule('G', "GG");
   sierpinski.setColor(120, 168, 93);
-  sierpinski.iter(5);
+  sierpinski.iterate(5);
   sierpinski.interpret(inter, step, angle);
   return 0;
 }

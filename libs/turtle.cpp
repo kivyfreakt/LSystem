@@ -8,7 +8,7 @@ ofstream temp_file ("tmp.ps"); // temporary file to save the image
 
 Turtle::Turtle(){
   /* Class Constructor */
-  temp_file << "/seg { 4 2 roll newpath moveto lineto stroke } def" << endl;
+  temp_file << "/seg { 4 2 roll newpath moveto lineto stroke } bind def" << endl;
   temp_file << "1 setlinecap" << endl;
   temp_file << "1 setlinejoin" << endl;
 }
