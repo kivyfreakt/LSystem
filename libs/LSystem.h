@@ -7,14 +7,18 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
 class LSystem : public Turtle{
   public:
-    LSystem(string, vector<LRule> &);
+    LSystem(string, vector<string> &);
+    void parseRules(vector<string>);
+    void addRule(string, string);
     void iterate(const int &);
-    void interpret(unordered_map<char,string> &, const float &, const float &);
+    string getCondition();
+    void interpret(unordered_map<string,string> &, const float &, const float &);
   private:
     string condition; // condition of the lsystem
     vector<LRule> rules; // rules of the lsystem
