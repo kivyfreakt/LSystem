@@ -12,7 +12,7 @@ using namespace std;
 const float step = 3.0;
 const float angle = 120.0;
 
-vector<string> rules = {"F -> F-G+F+G-F","G -> GG"};
+vector<string> rules = {"F => F-G+F+G-F","G => GG"};
 
 int main() {
   LSystem sierpinski("F-G-G", rules);

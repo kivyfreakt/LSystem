@@ -5,16 +5,20 @@
 <p align = "center"> Simple c++ L-System generator </p>
 
 -   [What are L-Systems?](#description)
-    - [Definition](#definition)
-    - [Development](#development)
+    * [Definition](#definition)
+    * [Development](#development)
 -   [How it works?](#how-it-works)
-    - [LSystem class](#lsystem-class)
-    - [Turtle class](#turtle-class)
+    * [LSystem class](#lsystem-class)
+    * [Turtle class](#turtle-class)
+-   [Documentation](#documentation)
+    * [Initialization](#initialization)
+    * [Setting rules](#setting-rules)
+    * [Getting results](#getting-results)
 -   [Examples](#examples)
-    - [Plant](#plant)
-    - [Heighway dragon](#heighway-dragon)
-    - [Pleasant error](#pleasant-error)
-    - [Sierpinski triangle](#sierpinski-triangle)
+    * [Plant](#plant)
+    * [Heighway dragon](#heighway-dragon)
+    * [Pleasant error](#pleasant-error)
+    * [Sierpinski triangle](#sierpinski-triangle)
 
 ---
 ## What are L-Systems?
@@ -39,51 +43,112 @@ The program has two classes: LSystem and Turtle. The first class produces the de
 ### LSystem class
 The LSystem class has only two methods, except for the constructor.
 ```c++
-LSystem(string axiom, const map<char,string> &rul)
+LSystem(string axiom, vector<string> &rul);
 ```
-Constructor. Creates and returns a new object of the LSystem class. Takes the string axiom as the l-system axiom and the associative array rul as The l-system rule set. The keys in this associative array are the predecessor characters and the corresponding values are the following strings.
+Constructor. Creates and returns a new object of the LSystem class. Takes the string axiom as the l-system axiom and the vector rul as The l-system rule set.
 ```c++
-void iter(const int &iterations)
+void iterate(const int &iterations);
 ```
 Carries out &iterations stages of development of the L-system.
 ```c++
-void interpret(map<char,string> &actions, const float &step, const float &angle)
+void interpret(const float &step, const float &angle);
 ```
 Interprets the current state of the L-system (calls interpretation procedures for each character for which such procedure is defined in the interpretation table).
-Takes an associative array actions as a table interpreting symbols of the alphabet of L-system.
 
 ### Turtle class
 The Turtle class has two kinds of methods. Some of them are responsible for the movement of the turtle in the coordinate system. Others are responsible for drawing.
 ####  Methods of movement
 ```c++
-void move(float distance)
+void move(float distance);
 ```
 Moves the turtle a certain distance
 ```c++
-void turnRight(float angle)
-void turnLeft(float angle)
+void turnRight(float angle);
+void turnLeft(float angle);
 ```
 Turns the turtle's head at a certain angle
 ```c++
-void save()
-void restore()
+void save();
+void restore();
 ```
 Save/restore the current coordinates of the turtle
 
 ####  Drawing methods
 ```c++
-void drawLine(float x1, float y1)
+void drawLine(float x1, float y1);
 ```
 Draws the path of the turtle if the pen is omitted
 ```c++
-void Turtle::setColor(double red, double green, double blue)
-void Turtle::setColor(int red, int green, int blue)
+void setColor(double red, double green, double blue);
+void setColor(int red, int green, int blue);
 ```
 Change the color of the turtle feather
 ```c++
-void Turtle::setPictureSize()
+void setPictureSize();
 ```
 Finds the largest and smallest coordinates and sets the size of the image
+
+## Documentation
+### Initialization
+
+```c++
+LSystem lsystem(options);
+```
+
+`options` may contain:
+- `axiom` A String to set the initial axiom
+- `rules` A Vector of the strings with variables and rules
+
+### Setting rules
+As seen in the first section you can simply set your rules when you init your L-System:
+
+```c++
+vector<string> rules = {"A => A-B--B+A++AA+B-"};
+LSystem lsystem(rules);
+```
+
+But the rule string should look like this
+```
+A => A-B--B+A++AA+B-
+```
+The first character is the variable name. Then '=>' with spaces. After that, there is a variable replacement rule.
+
+Also you could start with an empty L-System object, addRule() to edit the L-System later:
+```c++
+LSystem lsystem();
+lsystem.addRule("B","+A-BB--B-A++A+B");
+```
+
+### Getting results
+Now that we have set up our L-System set, we  can develop our L-System with iterate():
+
+- Iterate once
+```c++
+lsystem.iterate();
+```
+
+- Iterate n-times
+```c++
+int n = 5;
+lsystem.iterate(n);
+```
+
+Then you can interpret result with interpret():
+
+```c++
+float step = 3;
+float angle = 120;
+lsystem.interpret(step, angle);
+```
+
+Also you can just get result with getCondition():
+```c++
+LSystem lsystem("ABA");
+lsystem.addRule("B","+A-B-B-A+");
+lsystem.iterate();
+lsystem.getCondition();
+// 'A+A-B-B-A+A'
+```
 
 ## Examples
 ### Plant
@@ -93,9 +158,9 @@ Finds the largest and smallest coordinates and sets the size of the image
 Iterations - 7<br>
 Angle - 25 degrees
 
-|     Axiom     |     Rules     | Interpretation |
-| ------------- | ------------- | -------------  |
-| X  | X → F-[[X]+X]+F[+FX]-X<br> F → FF |F → move <br> + → turnLeft <br> - → turnRight <br> [ → save <br> ] → restore |
+|     Axiom     |     Rules     |
+| ------------- | ------------- |
+| X  | X → F-[[X]+X]+F[+FX]-X<br> F → FF |
 
 ### Heighway dragon
 
@@ -104,9 +169,9 @@ Angle - 25 degrees
 Iterations - 13<br>
 Angle - 90 degrees
 
-|     Axiom     |     Rules     | Interpretation |
-| ------------- | ------------- | -------------  |
-| FX  | X → X+YF+<br> Y → -FX-Y |F → move <br> + → turnLeft <br> - → turnRight <br> |
+|     Axiom     |     Rules     |
+| ------------- | ------------- |
+| FX  | X → X+YF+<br> Y → -FX-Y |
 
 ### Pleasant Error
 
@@ -115,9 +180,12 @@ Angle - 90 degrees
 Iterations - 4<br>
 Angle - 72 degrees
 
-|     Axiom     |     Rules     | Interpretation |
-| ------------- | ------------- | -------------  |
-| F-F-F-F-F  | F → F-F++F+F-F-F |F → move <br> + → turnLeft <br> - → turnRight <br> |
+|     Axiom     |     Rules     |
+| ------------- | ------------- |
+| F-F-F-F-F  | F → F-F++F+F-F-F |
 
 ### Sierpinski triangle
-Run example.cpp to get this example
+Run sierpinski-example.cpp to get this example
+
+### Gosper curve
+Run gosper-example.cpp to get this example

@@ -3,7 +3,7 @@
 LSystem::LSystem(string axiom, vector<string> &rul):condition(axiom){
     /* Class Constructor */
     for (auto r : rul){
-        auto pos = r.find(" -> ");
+        auto pos = r.find(" => ");
         if (pos != -1){
           string var = r.substr(0,pos);
           string rule = r.substr(pos+4);

@@ -12,7 +12,7 @@ using namespace std;
 const float step = 3.0;
 const float angle = 60.0;
 
-vector<string> rules = {"A -> A-B--B+A++AA+B-"};
+vector<string> rules = {"A => A-B--B+A++AA+B-"};
 
 int main() {
   LSystem gosper("A", rules);
