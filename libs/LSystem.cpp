@@ -2,21 +2,46 @@
 
 LSystem::LSystem(string axiom, vector<string> &rul):condition(axiom){
     /* Class Constructor */
-    for (auto r : rul){
-        auto pos = r.find(" => ");
-        if (pos != -1){
-          string var = r.substr(0,pos);
-          string rule = r.substr(pos+4);
-          addRule(var, rule);
-        }
-    }
+    getRules(rul);
     penDown();
 }
+
+LSystem::LSystem(vector<string> &rul){
+    /* Class Constructor */
+    getRules(rul);
+    penDown();
+}
+
+LSystem::LSystem(string axiom):condition(axiom){
+    /* Class Constructor */
+    penDown();
+}
+
+LSystem::LSystem(){
+    /* Class Constructor */
+    penDown();
+}
+
+void LSystem::getRules(vector<string> &rul){
+  for (auto r : rul){
+      auto pos = r.find(" => ");
+      if (pos != -1){
+        string var = r.substr(0,pos);
+        string rule = r.substr(pos+4);
+        addRule(var, rule);
+      }
+  }
+}
+
 
 void LSystem::addRule(string name, string rule){
     // to do rules check
     LRule n(name, rule);
     rules.push_back(n);
+}
+
+void LSystem::setAxiom(const string &axiom){
+    condition = axiom;
 }
 
 void LSystem::iterate(const int &iterations = 1){

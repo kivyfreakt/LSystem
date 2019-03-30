@@ -12,12 +12,16 @@ using namespace std;
 class LSystem : public Turtle{
   public:
     LSystem(string, vector<string> &);
-    void parseRules(vector<string>);
+    LSystem(vector<string> &);
+    LSystem(string);
+    LSystem();
     void addRule(string, string);
+    void setAxiom(const string &);
     void iterate(const int &);
     string getCondition();
     void interpret(const float &, const float &);
   private:
+    void getRules(vector<string> &);
     string condition; // condition of the lsystem
     vector<LRule> rules; // rules of the lsystem
 };
