@@ -1,7 +1,4 @@
-#include "LRule.cpp"
 #include "LSystem.cpp"
-#include <string>
-#include <vector>
 
 using namespace std;
 

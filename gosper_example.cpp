@@ -1,6 +1,6 @@
 /*
 * Simple test app, which use LSystem library
-* to draw Sierpinski triangle
+* to draw gosper curve
 */
 
 #include "src/StandartLSystem.cpp"
