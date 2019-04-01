@@ -1,4 +1,6 @@
+#include "SLRule.cpp"
 #include "LSystem.cpp"
+#include <ctime>
 
 using namespace std;
 
@@ -10,5 +12,5 @@ class StochasticLSystem : public LSystem{
     StochasticLSystem():LSystem(){}
     void iterate(const int &);
   private:
-    vector<LRule> getRules(vector<string> &);
+    vector<SLRule> getRules(vector<string> &);
 };

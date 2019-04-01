@@ -1,3 +1,4 @@
+#include "LRule.cpp"
 #include "LSystem.cpp"
 
 using namespace std;

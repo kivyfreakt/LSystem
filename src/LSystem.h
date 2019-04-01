@@ -2,7 +2,6 @@
 * The class that produces the development
 * of the lsystem in accordance with its rules.
 */
-#include "LRule.cpp"
 #include "turtle.cpp"
 #include <string>
 #include <vector>
