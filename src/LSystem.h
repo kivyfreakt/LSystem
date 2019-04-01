@@ -4,6 +4,7 @@
 */
 #include "turtle.cpp"
 #include <string>
+#include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -16,8 +17,10 @@ class LSystem : public Turtle{
     LSystem();
     void addRule(string);
     void setAxiom(const string &);
+    void addConstant(char);
     void interpret(const float &, const float &);
   protected:
     string condition; // condition of the lsystem
     vector<string> rules; // rules of the lsystem
+    vector<char> constants; // constants of the lsystem
 };

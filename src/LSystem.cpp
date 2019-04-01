@@ -29,6 +29,10 @@ void LSystem::setAxiom(const string &axiom){
     condition = axiom;
 }
 
+void LSystem::addConstant(char constant){
+    constants.push_back(constant);
+}
+
 void LSystem::interpret(const float &step, const float &angle){
     /* interpretation of the alphabet in a certain action turtles */
     for (unsigned int i = 0, size = condition.size(); i < size ; ++i) {
@@ -46,7 +50,8 @@ void LSystem::interpret(const float &step, const float &angle){
           restore();
         break;
         default:
-          move(step);
+          if (find(constants.begin(), constants.end(), condition[i]) == constants.end())
+            move(step);
         break;
       }
     }
