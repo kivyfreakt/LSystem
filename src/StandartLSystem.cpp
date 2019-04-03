@@ -4,7 +4,7 @@ void StandartLSystem::iterate(const int &iterations = 1){
     vector<LRule> rul = getRules(rules);
     for (unsigned int i = 0; i < iterations ; ++i){
         string new_cond;
-        for (int j = 0; j < condition.size(); ++j){
+        for (unsigned int j = 0; j < condition.size(); ++j){
             string cur;
             cur += condition[j];
             string replacement = cur;
