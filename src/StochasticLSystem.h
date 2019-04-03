@@ -1,4 +1,4 @@
-#include "SLRule.cpp"
+#include "LRule.cpp"
 #include "LSystem.cpp"
 #include <ctime>
 #include <map>
@@ -13,6 +13,6 @@ class StochasticLSystem : public LSystem{
     StochasticLSystem():LSystem(){}
     void iterate(const int &);
   private:
-    vector<SLRule> getRules(vector<string> &);
-    map<float, SLRule> buildRuleRange(vector<SLRule> rules);
+    vector<LRule> getRules(vector<string> &);
+    map<float, LRule> buildRuleRange(vector<LRule> rules);
 };

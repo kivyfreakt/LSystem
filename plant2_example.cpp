@@ -12,7 +12,7 @@ vector<string> rules = {"F => F[+F]F[-F][F] (0.5)", "F => F[+F]F (0.3)","F => F[
 int main() {
   StochasticLSystem plant("F", rules);
   plant.moveto(250,0);
-  plant.setColor(147, 112, 219);
+  plant.setColor(67,160,71);
   plant.iterate(6);
   plant.interpret(step, angle);
   cout << (float)clock()/CLOCKS_PER_SEC << '\n';

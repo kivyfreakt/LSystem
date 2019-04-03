@@ -1,7 +1,7 @@
 #include "StochasticLSystem.h"
 
 void StochasticLSystem::iterate(const int &iterations = 1){
-    vector<SLRule> r = getRules(rules);
+    vector<LRule> r = getRules(rules);
     auto rul = buildRuleRange(r);
     for (unsigned int i = 0; i < iterations ; ++i){
         string new_cond;
@@ -21,15 +21,15 @@ void StochasticLSystem::iterate(const int &iterations = 1){
 }
 
 
-vector<SLRule> StochasticLSystem::getRules(vector<string> &rul){
-  vector<SLRule> v;
+vector<LRule> StochasticLSystem::getRules(vector<string> &rul){
+  vector<LRule> v;
   for (auto r : rul){
       auto pos1 = r.find(" => ");
       auto pos2 = r.find(" (");
       auto pos3 = r.find(")");
       if (pos1 != -1 && pos2 != -1){
         string p = r.substr(pos2+2, pos3);
-        SLRule n(r.substr(0,pos1), r.substr(pos1+4, pos2), stof(p));
+        LRule n(r.substr(0,pos1), r.substr(pos1+4, pos2), stof(p));
         v.push_back(n);
       }
   }
@@ -37,8 +37,8 @@ vector<SLRule> StochasticLSystem::getRules(vector<string> &rul){
 }
 
 
-map<float, SLRule> StochasticLSystem::buildRuleRange(vector<SLRule> rules){
-    map<float, SLRule> rulesWithProbability;
+map<float, LRule> StochasticLSystem::buildRuleRange(vector<LRule> rules){
+    map<float, LRule> rulesWithProbability;
     float probability = 0.0;
     for (auto r : rules){
         probability += r.probability;
