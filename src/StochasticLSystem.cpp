@@ -1,25 +1,18 @@
 #include "StochasticLSystem.h"
 
 void StochasticLSystem::iterate(const int &iterations = 1){
-    vector<SLRule> rul = getRules(rules);
+    vector<SLRule> r = getRules(rules);
+    auto rul = buildRuleRange(r);
     for (unsigned int i = 0; i < iterations ; ++i){
         string new_cond;
+        float random = ((float)rand()/(float)RAND_MAX);
+        auto randomRule = rul.lower_bound(random);
         for (int j = 0; j < condition.size(); ++j){
             string cur;
             cur += condition[j];
             string replacement = cur;
-            for (auto r : rul){
-                bool OK = false;
-                if(cur == r.variable && r.probability < 1.0){
-                  float random = ((float)rand()/(float)RAND_MAX);
-                  OK = random <= r.probability;
-                }else if(r.probability == 1.0){
-                  OK = true;
-                }
-                if(OK){
-                  replacement = r.rule;
-                  break;
-                }
+            if(randomRule->second.variable == cur){
+              replacement = randomRule->second.rule;
             }
             new_cond += replacement;
           }
@@ -41,4 +34,15 @@ vector<SLRule> StochasticLSystem::getRules(vector<string> &rul){
       }
   }
   return v;
+}
+
+
+map<float, SLRule> StochasticLSystem::buildRuleRange(vector<SLRule> rules){
+    map<float, SLRule> rulesWithProbability;
+    float probability = 0.0;
+    for (auto r : rules){
+        probability += r.probability;
+        rulesWithProbability.insert(make_pair(probability,r));
+    }
+    return rulesWithProbability;
 }
