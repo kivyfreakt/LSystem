@@ -7,18 +7,18 @@
 -   [What are L-Systems?](#description)
     * [Definition](#definition)
     * [Development](#development)
--   [How it works?](#how-it-works)
-    * [LSystem class](#lsystem-class)
-    * [Turtle class](#turtle-class)
 -   [Documentation](#documentation)
     * [Initialization](#initialization)
-    * [Setting rules](#setting-rules)
+      + [Setting axiom](#setting-axiom)
+      + [Setting rules](#setting-rules)
     * [Getting results](#getting-results)
+    * [Program example](#program-example)
 -   [Examples](#examples)
     * [Plant](#plant)
     * [Heighway dragon](#heighway-dragon)
     * [Pleasant error](#pleasant-error)
-    * [Sierpinski triangle](#sierpinski-triangle)
+    * [Plant2](#plant2)
+    * [Penrose Tiling](#penrose-tiling)
 
 ---
 ## What are L-Systems?
@@ -37,86 +37,65 @@ where
 ### Development
 Once the L-system is defined, it begins to evolve according to its rules. The initial state of the L-system is its axiom. With further development, this line describing the state will change. The development of L-systems is cyclic. In each development cycle, a line is viewed from beginning to end, character by character. For each symbol, the rule for which the symbol serves as a precursor is searched. If no such rule is found, the symbol is left unchanged. In other words, for those x characters for which there is no explicit rule, the implicit rule applies: X→X. If the corresponding rule is found, the predecessor character is replaced by the following string from this rule.
 
-## How it works?
-The program has two classes: LSystem and Turtle. The first class produces the development of L-system. The second class processes commands of turtle graphics.
-
-### LSystem class
-The LSystem class has only two methods, except for the constructor.
-```c++
-LSystem(string axiom, vector<string> &rul);
-```
-Constructor. Creates and returns a new object of the LSystem class. Takes the string axiom as the l-system axiom and the vector rul as The l-system rule set.
-```c++
-void iterate(const int &iterations);
-```
-Carries out &iterations stages of development of the L-system.
-```c++
-void interpret(const float &step, const float &angle);
-```
-Interprets the current state of the L-system (calls interpretation procedures for each character for which such procedure is defined in the interpretation table).
-
-### Turtle class
-The Turtle class has two kinds of methods. Some of them are responsible for the movement of the turtle in the coordinate system. Others are responsible for drawing.
-####  Methods of movement
-```c++
-void move(float distance);
-```
-Moves the turtle a certain distance
-```c++
-void turnRight(float angle);
-void turnLeft(float angle);
-```
-Turns the turtle's head at a certain angle
-```c++
-void save();
-void restore();
-```
-Save/restore the current coordinates of the turtle
-
-####  Drawing methods
-```c++
-void drawLine(float x1, float y1);
-```
-Draws the path of the turtle if the pen is omitted
-```c++
-void setColor(double red, double green, double blue);
-void setColor(int red, int green, int blue);
-```
-Change the color of the turtle feather
-```c++
-void setPictureSize();
-```
-Finds the largest and smallest coordinates and sets the size of the image
-
 ## Documentation
 ### Initialization
 
 ```c++
-LSystem lsystem(options);
+StandartLSystem lsystem(options);
+StochasticLSystem lsys(options);
 ```
 
 `options` may contain:
 - `axiom` A String to set the initial axiom
 - `rules` A Vector of the strings with variables and rules
 
-### Setting rules
-As seen in the first section you can simply set your rules when you init your L-System:
-
+#### Setting axiom
+You can simply set your axiom when you init your L-System.
 ```c++
-vector<string> rules = {"A => A-B--B+A++AA+B-"};
-LSystem lsystem(rules);
+StandartLSystem lsystem("F-F-F");
 ```
 
-But the rule string should look like this
+You can also set an axiom after initialization:
+```c++
+lsystem.setAxiom("F");
+```
+
+#### Setting rules
+You can simply set your rules when you init your L-System:
+
+###### DOL
+```c++
+vector<string> rules = {"A => A-B--B+A++AA+B-"};
+StandartLSystem lsystem(rules);
+```
+
+Rule string should look like this
 ```
 A => A-B--B+A++AA+B-
 ```
 The first character is the variable name. Then '=>' with spaces. After that, there is a variable replacement rule.
 
+###### Stochastic
+
+```c++
+vector<string> rules = {"F => F[+F]F[-F][F] (0.7)", "F => F[+F]F (0.3)"};
+StochasticLSystem lsystem(rules);
+```
+Rule string should look like this
+```
+F => F[+F]F[-F][F] (0.7)
+```
+The first character is the variable name. Then '=>' with spaces. After that, there is a variable replacement rule. In brackets you must specify the probability of the rule
+
+
 Also you could start with an empty L-System object, addRule() to edit the L-System later:
 ```c++
-LSystem lsystem();
 lsystem.addRule("B","+A-BB--B-A++A+B");
+```
+
+If you want the symbol not to be used by the interpreter, make it a constant:
+```c++
+lsystem.addConstant("C");
 ```
 
 ### Getting results
@@ -143,12 +122,45 @@ lsystem.interpret(step, angle);
 
 Also you can just get result with getCondition():
 ```c++
-LSystem lsystem("ABA");
 lsystem.addRule("B","+A-B-B-A+");
 lsystem.iterate();
 lsystem.getCondition();
 // 'A+A-B-B-A+A'
 ```
+
+### Program example
+```c++
+#include "src/StandartLSystem.cpp"
+
+const float step = 5.0;
+const float angle = 36.0;
+
+int main() {
+  StandartLSystem ls;
+
+  ls.setAxiom("[7]++[7]++[7]++[7]++[7]");
+  ls.addConstant('6');
+  ls.addConstant('7');
+  ls.addConstant('8');
+  ls.addConstant('9');
+  ls.addRule("6 => 81++91----71[-81----61]++");
+  ls.addRule("7 => +81--91[---61--71]+");
+  ls.addRule("8 => -61++71[+++81++91]-");
+  ls.addRule("9 => --81++++61[+91++++71]--71");
+  ls.addRule("1 => ");
+
+
+  ls.moveto(250,250);
+
+  ls.setColor(147, 112, 219);
+  ls.iterate(7);
+  ls.interpret(step, angle);
+  return 0;
+}
+```
+#### Output
+![Penrose](examples/penrose.png "Penrose Tiling")
+
 
 ## Examples
 ### Plant
@@ -184,8 +196,5 @@ Angle - 72 degrees
 | ------------- | ------------- |
 | F-F-F-F-F  | F → F-F++F+F-F-F |
 
-### Sierpinski triangle
-Run sierpinski-example.cpp to get this example
-
-### Gosper curve
-Run gosper-example.cpp to get this example
+### Plant2
+Run plant2_example.cpp to get this example
