@@ -6,6 +6,7 @@
 */
 
 #include <stack>
+#include <SDL2/SDL.h>
 
 class Turtle{
   public:
@@ -32,15 +33,12 @@ class Turtle{
 
     // --------------- Drawing methods ---------------
 
+    void clear();
+    void flush();
     void penDown();
     void penUp();
-    void drawCircle(float);
-    void drawCircle(float, float);
-    void drawCircle(float, float, float);
     void drawLine(float, float);
-    void setColor(double, double, double);
     void setColor(int, int, int);
-    void setPictureSize();
     ~Turtle();
 
   private:
@@ -50,5 +48,6 @@ class Turtle{
     bool pen = false;
     unsigned short int width = 1;
     stack <float> save_stack; // stack to store coordinates
-    float picture_size[2][2] = {{1000, 1000}, {0,0}}; // image size
+    SDL_Window *window;
+    SDL_Renderer *renderer;
 };

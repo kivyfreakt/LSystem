@@ -1,6 +1,6 @@
 #include "StochasticLSystem.h"
 
-void StochasticLSystem::iterate(const int &iterations = 1){
+void StochasticLSystem::iterate(int iterations = 1){
     vector<LRule> r = getRules(rules);
     map<float, LRule> rul = buildRuleRange(r);
     srand(time(NULL));
