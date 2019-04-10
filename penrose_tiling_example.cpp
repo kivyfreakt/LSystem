@@ -5,7 +5,7 @@ using namespace std;
 
 int main( int argc, char *argv[]) {
 
-  	StandartLSystem ls("[7]++[7]++[7]++[7]++[7]");
+  	StandartGrammar ls("[7]++[7]++[7]++[7]++[7]");
 
     ls.addConstant('6');
     ls.addConstant('7');

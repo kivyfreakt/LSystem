@@ -10,18 +10,16 @@
 
 using namespace std;
 
-class LSystem{
+class LSystemGrammar{
   public:
-    LSystem(string, vector<string>);
-    LSystem(vector<string>);
-    LSystem(string);
-    LSystem();
+    LSystemGrammar(string, vector<string>);
+    LSystemGrammar(vector<string>);
+    LSystemGrammar(string);
+    LSystemGrammar();
     void addRule(string);
     void setAxiom(const string &);
-    void addConstant(char);
     string getResult();
   protected:
     string condition; // condition of the lsystem
     vector<string> rules; // rules of the lsystem
-    vector<char> constants; // constants of the lsystem
 };
