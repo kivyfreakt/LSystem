@@ -2,14 +2,15 @@
 * The class that produces the development
 * of the lsystem in accordance with its rules.
 */
-#include "Turtle.cpp"
+
+#include "LRule.cpp"
 #include <string>
 #include <algorithm>
 #include <vector>
 
 using namespace std;
 
-class LSystem : public Turtle{
+class LSystem{
   public:
     LSystem(string, vector<string>);
     LSystem(vector<string>);
@@ -18,7 +19,7 @@ class LSystem : public Turtle{
     void addRule(string);
     void setAxiom(const string &);
     void addConstant(char);
-    void interpret(const float &, const float &);
+    string getResult();
   protected:
     string condition; // condition of the lsystem
     vector<string> rules; // rules of the lsystem

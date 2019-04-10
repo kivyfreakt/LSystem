@@ -1,6 +1,6 @@
-#include "StandartLSystem.h"
+#include "StandartGrammar.h"
 
-void StandartLSystem::iterate(const int iterations = 1){
+void StandartGrammar::iterate(const int iterations = 1){
     vector<LRule> rul = getRules(rules);
     for (unsigned int i = 0; i < iterations ; ++i){
         string new_cond;
@@ -21,7 +21,7 @@ void StandartLSystem::iterate(const int iterations = 1){
 }
 
 
-vector<LRule> StandartLSystem::getRules(vector<string> &rul){
+vector<LRule> StandartGrammar::getRules(vector<string> &rul){
   vector<LRule> v;
   for (auto r : rul){
       auto pos = r.find(" => ");

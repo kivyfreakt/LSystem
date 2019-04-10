@@ -1,6 +1,6 @@
-#include "StochasticLSystem.h"
+#include "StochasticGrammar.h"
 
-void StochasticLSystem::iterate(int iterations = 1){
+void StochasticGrammar::iterate(int iterations = 1){
     vector<LRule> r = getRules(rules);
     map<float, LRule> rul = buildRuleRange(r);
     srand(time(NULL));
@@ -21,24 +21,22 @@ void StochasticLSystem::iterate(int iterations = 1){
     }
 }
 
-
-vector<LRule> StochasticLSystem::getRules(vector<string> &rul){
+vector<LRule> StochasticGrammar::getRules(vector<string> &rul){
   vector<LRule> v;
   for (auto r : rul){
       auto pos1 = r.find(" => ");
       auto pos2 = r.find(" (");
       auto pos3 = r.find(")");
       if (pos1 != -1 && pos2 != -1){
-        string p = r.substr(pos2+2, pos3);
-        LRule n(r.substr(0,pos1), r.substr(pos1+4, pos2), stof(p));
+        string p = r.substr(pos2+3, pos3);
+        LRule n(r.substr(0,pos1), r.substr(pos1+4, pos2 - pos1 - 4),stof(p));
         v.push_back(n);
       }
   }
   return v;
 }
 
-
-map<float, LRule> StochasticLSystem::buildRuleRange(const vector<LRule> &rules){
+map<float, LRule> StochasticGrammar::buildRuleRange(const vector<LRule> &rules){
     map<float, LRule> rulesWithProbability;
     float probability = 0.0;
     for (auto r : rules){
