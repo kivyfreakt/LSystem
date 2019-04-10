@@ -1,10 +1,5 @@
 #include "Turtle.h"
 
-Turtle::Turtle(SDL_Renderer *renderer, float _step, float _angle):
-  turtleRenderer(renderer),
-  step(_step),
-  angle(_angle){}
-
 // --------------- Getters and Setters ---------------
 float Turtle::getCoord(short coord) {
   if (coord == 0)
@@ -33,6 +28,13 @@ bool Turtle::getPen() {
 void Turtle::setPen(bool npen) {
   pen = npen;
 }
+
+void Turtle::init(SDL_Renderer *renderer, float _step, float _angle){
+    turtleRenderer = renderer;
+    step = _step;
+    angle = _angle;
+  }
+
 
 // --------------- Methods of movement ---------------
 
@@ -121,12 +123,7 @@ void Turtle::setColor(int red, int green, int blue){
 
 // --------------- Interpret methods ---------------
 
-void Turtle::addConstant(char constant){
-      constants.push_back(constant);
-}
-
-
-void Turtle::interpret(string result){
+void Turtle::interpret(string result, vector<char >constants){
     /* interpretation of the alphabet in a certain action turtles */
     for (unsigned int i = 0, size = result.size(); i < size ; ++i) {
       switch (result[i]) {

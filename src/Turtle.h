@@ -6,15 +6,12 @@
 */
 
 #include <stack>
-#include <vector>
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <cmath>
 
 class Turtle{
   public:
-    Turtle(SDL_Renderer, float, float);
-
     // --------------- Methods of movement ---------------
 
     void moveto(float, float);
@@ -35,9 +32,8 @@ class Turtle{
 
   // --------------- Interpret methods ---------------
 
-    void addConstant(char);
     void interpret(string);
-
+    void init(SDL_Renderer, float, float);
   private:
     // --------------- Getters and Setters ---------------
     float getCoord(short);
@@ -54,6 +50,5 @@ class Turtle{
     float direction = 90.0;  // he position of the turtle's head in space( in degrees )
     bool pen = false;
     stack <float> save_stack; // stack to store coordinates
-    vector <char> constants;
     SDL_Renderer *turtleRenderer;
 };
