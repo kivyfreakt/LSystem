@@ -7,6 +7,8 @@
 
 #include <stack>
 #include <SDL2/SDL.h>
+#include <iostream>
+#include <cmath>
 
 class Turtle{
   public:
@@ -16,8 +18,6 @@ class Turtle{
     void setCoords(float, float);
     float getDirection();
     void setDirection(float);
-    int getWidth();
-    void setWidth(int);
     bool getPen();
     void setPen(bool);
 
@@ -34,20 +34,16 @@ class Turtle{
     // --------------- Drawing methods ---------------
 
     void clear();
-    void flush();
     void penDown();
     void penUp();
     void drawLine(float, float);
     void setColor(int, int, int);
-    ~Turtle();
 
   private:
     float x = 0.0; // coordinate of the turtle to the x-axis
     float y = 0.0; // coordinate of the turtle to the y-axis
     float direction = 90.0;  // he position of the turtle's head in space( in degrees )
     bool pen = false;
-    unsigned short int width = 1;
     stack <float> save_stack; // stack to store coordinates
-    SDL_Window *window;
-    SDL_Renderer *renderer;
+    SDL_Renderer *turtleRenderer;
 };

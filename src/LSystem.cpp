@@ -1,11 +1,11 @@
 #include "LSystem.h"
 
-LSystem::LSystem(string axiom, vector<string> &rul):condition(axiom),rules(rul){
+LSystem::LSystem(string axiom, vector<string> rul):condition(axiom),rules(rul){
     /* Class Constructor */
     penDown();
 }
 
-LSystem::LSystem(vector<string> &rul):rules(rul){
+LSystem::LSystem(vector<string> rul):rules(rul){
     /* Class Constructor */
     penDown();
 }
