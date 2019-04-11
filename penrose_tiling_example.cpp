@@ -1,23 +1,27 @@
-#include "src/StandartGrammar.cpp"
-#include <iostream>
+#include "src/LSystem.cpp"
 
 using namespace std;
 
-int main( int argc, char *argv[]) {
+vector<string> rules = {
+  "6 => 81++91----71[-81----61]++",
+  "7 => +81--91[---61--71]+",
+  "8 => -61++71[+++81++91]-",
+  "9 => --81++++61[+91++++71]--71",
+  "1 => "
+};
 
-  	StandartGrammar ls("[7]++[7]++[7]++[7]++[7]");
+int main( int argc, char *argv[]) {
+  	LSystem ls;
 
     ls.addConstant('6');
     ls.addConstant('7');
     ls.addConstant('8');
     ls.addConstant('9');
-    ls.addRule("6 => 81++91----71[-81----61]++");
-    ls.addRule("7 => +81--91[---61--71]+");
-    ls.addRule("8 => -61++71[+++81++91]-");
-    ls.addRule("9 => --81++++61[+91++++71]--71");
-    ls.addRule("1 => ");
 
-    ls.iterate(6);
-    cout << ls.getResult();
+    ls.setStep(1.0);
+    ls.setAngle(36.0);
+
+    ls.build("[7]++[7]++[7]++[7]++[7]", rules, 5);
+    ls.loop();
   return 0;
 }

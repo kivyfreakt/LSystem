@@ -3,7 +3,9 @@
 * of the lsystem in accordance with its rules.
 */
 
-#include "LRule.cpp"
+#pragma once
+
+#include "LRule.h"
 #include <string>
 #include <algorithm>
 #include <vector>

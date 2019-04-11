@@ -4,11 +4,17 @@
 * The class is used to interpret the lsystem alphabet
 * into turtle drawing commands
 */
+#pragma once
 
 #include <stack>
+#include <vector>
+#include <string>
+#include <algorithm>
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <cmath>
+
+using namespace std;
 
 class Turtle{
   public:
@@ -32,8 +38,8 @@ class Turtle{
 
   // --------------- Interpret methods ---------------
 
-    void interpret(string);
-    void init(SDL_Renderer, float, float);
+    void interpret(string, vector<char>);
+    void init(SDL_Renderer*, float, float);
   private:
     // --------------- Getters and Setters ---------------
     float getCoord(short);
@@ -44,7 +50,7 @@ class Turtle{
     void setPen(bool);
 
     float step;
-    floar angle;
+    float angle;
     float x = 0.0; // coordinate of the turtle to the x-axis
     float y = 0.0; // coordinate of the turtle to the y-axis
     float direction = 90.0;  // he position of the turtle's head in space( in degrees )

@@ -33,7 +33,7 @@ void Turtle::init(SDL_Renderer *renderer, float _step, float _angle){
     turtleRenderer = renderer;
     step = _step;
     angle = _angle;
-  }
+}
 
 
 // --------------- Methods of movement ---------------
@@ -120,10 +120,10 @@ void Turtle::setColor(int red, int green, int blue){
   if (red <= 255 && green <= 255 && blue <= 255) {
     SDL_SetRenderDrawColor(turtleRenderer, red, green, blue, 255);
   }
-
+}
 // --------------- Interpret methods ---------------
 
-void Turtle::interpret(string result, vector<char >constants){
+void Turtle::interpret(string result, vector<char> constants){
     /* interpretation of the alphabet in a certain action turtles */
     for (unsigned int i = 0, size = result.size(); i < size ; ++i) {
       switch (result[i]) {
@@ -145,6 +145,5 @@ void Turtle::interpret(string result, vector<char >constants){
         break;
       }
     }
+    SDL_RenderPresent(turtleRenderer);
   }
-
-}

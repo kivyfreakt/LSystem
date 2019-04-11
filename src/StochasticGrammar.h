@@ -1,7 +1,8 @@
+#pragma once
+
 #include "LSystemGrammar.cpp"
 #include <ctime>
 #include <map>
-#include <iostream>
 
 using namespace std;
 

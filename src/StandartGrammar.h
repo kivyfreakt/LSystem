@@ -1,3 +1,5 @@
+#pragma once
+
 #include "LSystemGrammar.cpp"
 
 using namespace std;

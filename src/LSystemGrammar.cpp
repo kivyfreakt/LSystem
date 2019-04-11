@@ -1,3 +1,4 @@
+#pragma once
 #include "LSystemGrammar.h"
 
 LSystemGrammar::LSystemGrammar(string axiom, vector<string> rul):condition(axiom),rules(rul){}
