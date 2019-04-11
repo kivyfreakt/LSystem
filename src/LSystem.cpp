@@ -1,14 +1,7 @@
 #include "LSystem.h"
 
 LSystem::LSystem(){
-    SDL_Init(SDL_INIT_VIDEO);
-
-    const short SCREEN_WIDTH = 640;
-    const short SCREEN_HEIGHT = 640;
-
-    window = SDL_CreateWindow("LSystem", 0, 30, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_RenderPresent(renderer);
+  render.create(500, 500);
 }
 
 
@@ -47,23 +40,27 @@ void LSystem::build(string axiom, vector<string> rules, int iterations){
       result = ls.getResult();
     }
 
-    turtle.init(renderer, step, angle);
+    turtle.init(render, step, angle);
+    turtle.moveto(250,250);
     turtle.setColor(147, 112, 219);
     turtle.interpret(result, constants);
 }
 
 void LSystem::loop(){
-    bool quit = false;
-    SDL_Event theEvent;
-    while (!quit){
-      while (SDL_PollEvent(&theEvent)){
-        if(theEvent.type == SDL_QUIT){
-          quit = true;
-        }
+  while (window.isOpen())
+  {
+      sf::Event event;
+      while (window.pollEvent(event))
+      {
+          if (event.type == sf::Event::Closed)
+              window.close();
       }
-      SDL_RenderPresent(renderer);
-    }
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+      window.clear(sf::Color::Black);
+
+      // draw everything here...
+      // window.draw(...);
+      window.draw(render);
+
+      window.display();
+  }
 }

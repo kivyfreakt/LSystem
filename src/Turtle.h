@@ -10,7 +10,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <SDL2/SDL.h>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
 
@@ -39,7 +39,7 @@ class Turtle{
   // --------------- Interpret methods ---------------
 
     void interpret(string, vector<char>);
-    void init(SDL_Renderer*, float, float);
+    void init(sf::RenderTexture, float, float);
   private:
     // --------------- Getters and Setters ---------------
     float getCoord(short);
@@ -56,5 +56,5 @@ class Turtle{
     float direction = 90.0;  // he position of the turtle's head in space( in degrees )
     bool pen = false;
     stack <float> save_stack; // stack to store coordinates
-    SDL_Renderer *turtleRenderer;
+    sf::RenderTexture render;
 };

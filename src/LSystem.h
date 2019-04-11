@@ -4,7 +4,7 @@
 #include "Turtle.cpp"
 #include "StandartGrammar.cpp"
 #include "StochasticGrammar.cpp"
-#include <SDL2/SDL.h>
+#include <SFML/Graphics.hpp>
 
 class LSystem{
   public:
@@ -16,8 +16,8 @@ class LSystem{
     void build(string, vector<string>, int);
     void loop();
   private:
-    SDL_Window*  window;
-    SDL_Renderer* renderer;
+    sf::RenderWindow window(sf::VideoMode(800, 600), "LSystem");
+    sf::RenderTexture render;
     Turtle turtle;
     vector <char> constants;
     float step;

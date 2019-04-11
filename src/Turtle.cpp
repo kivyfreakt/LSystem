@@ -29,8 +29,8 @@ void Turtle::setPen(bool npen) {
   pen = npen;
 }
 
-void Turtle::init(SDL_Renderer *renderer, float _step, float _angle){
-    turtleRenderer = renderer;
+void Turtle::init(sf::RenderTexture _render, float _step, float _angle){
+    render = _render;
     step = _step;
     angle = _angle;
 }
@@ -91,7 +91,7 @@ void Turtle::reset(){
 
 // --------------- Drawing methods ---------------
 void Turtle::clear(){
-  SDL_RenderClear(turtleRenderer);
+
 }
 
 void Turtle::penDown(){
@@ -111,14 +111,19 @@ void Turtle::penUp(){
 
 void Turtle::drawLine(float x1, float y1){
   /* Draws the path of the turtle if the pen is omitted */
-  SDL_RenderDrawLine(turtleRenderer,x,y,x1,y1);
+  sf::Vertex line[] =
+  {
+      sf::Vertex(sf::Vector2f(x, y)),
+      sf::Vertex(sf::Vector2f(x1, y1))
+  };
+  window.draw(line, 2, sf::Lines);
 }
 
 
 void Turtle::setColor(int red, int green, int blue){
   /* Change the color of the turtle feather */
   if (red <= 255 && green <= 255 && blue <= 255) {
-    SDL_SetRenderDrawColor(turtleRenderer, red, green, blue, 255);
+
   }
 }
 // --------------- Interpret methods ---------------
@@ -145,5 +150,5 @@ void Turtle::interpret(string result, vector<char> constants){
         break;
       }
     }
-    SDL_RenderPresent(turtleRenderer);
+
   }
