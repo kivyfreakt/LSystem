@@ -1,5 +1,10 @@
 #include "Turtle.hpp"
 
+Turtle::Turtle(){
+  turtlePos = sf::Vector2f(0.f, 0.f);
+  vArray.setPrimitiveType(sf::LinesStrip);
+  vArray.resize(0);
+}
 // --------------- Getters and Setters ---------------
 
 float Turtle::getDirection() {
@@ -87,7 +92,7 @@ void Turtle::penUp(){
 
 // --------------- Interpret methods ---------------
 
-void Turtle::interpret(sf::RenderWindow *disp, string result, vector<char> constants){
+void Turtle::interpret(string result, vector<char> constants){
     /* interpretation of the alphabet in a certain action turtles */
     for (unsigned int i = 0, size = result.size(); i < size ; ++i) {
       switch (result[i]) {
@@ -109,5 +114,8 @@ void Turtle::interpret(sf::RenderWindow *disp, string result, vector<char> const
         break;
       }
     }
-    disp->draw(vArray);
   }
+
+void Turtle::draw(sf::RenderWindow *disp){
+  disp->draw(vArray);
+}

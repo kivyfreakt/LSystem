@@ -6,7 +6,7 @@ vector<string> rules = {"F => F[+F]F[-F][F] (0.5)", "F => F[+F]F (0.3)", "F => F
 
 int main(int argc, char *argv[]) {
   LSystem plant;
-  plant.setStep(1.0);
+  plant.setStep(5.0);
   plant.setAngle(25.7);
   plant.build("F", rules, 6);
   plant.loop();

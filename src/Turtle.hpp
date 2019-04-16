@@ -19,7 +19,7 @@ using namespace std;
 class Turtle{
   public:
     // --------------- Methods of movement ---------------
-
+    Turtle();
     void moveto(float, float);
     void move(float);
     void turnRight(float);
@@ -34,8 +34,9 @@ class Turtle{
 
   // --------------- Interpret methods ---------------
 
-    void interpret(sf::RenderWindow* ,string, vector<char>);
+    void interpret(string, vector<char>);
     void init(float, float);
+    void draw(sf::RenderWindow *);
 
   private:
     // --------------- Getters and Setters ---------------
@@ -48,9 +49,8 @@ class Turtle{
     float angle;
 
     sf::VertexArray vArray; //Representation of the script iteration as a set of vertexes
-    sf::Vector2f turtlePos = sf::Vector2f(0.f, 0.f); //Current position of the turtle
+    sf::Vector2f turtlePos; //Current position of the turtle
     float direction = 0.0;  // he position of the turtle's head in space( in degrees )
-    bool pen = false;
+    bool pen = true;
     stack <float> save_stack; // stack to store coordinates
-    sf::RenderWindow window;
 };

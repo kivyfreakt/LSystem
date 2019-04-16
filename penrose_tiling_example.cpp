@@ -18,7 +18,7 @@ int main( int argc, char *argv[]) {
     ls.addConstant('8');
     ls.addConstant('9');
 
-    ls.setStep(1.0);
+    ls.setStep(5.0);
     ls.setAngle(36.0);
 
     ls.build("[7]++[7]++[7]++[7]++[7]", rules, 5);

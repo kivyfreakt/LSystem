@@ -1,7 +1,9 @@
 #include "LSystem.hpp"
 
 LSystem::LSystem(){
-  window.setSize(sf::Vector2u(640, 480));
+  window.create(sf::VideoMode(800, 800), "LSystem");
+  sf::View myView(sf::Vector2f(0.f,0.f), sf::Vector2f(800.f, 800.f));
+  window.setView(myView);
 }
 
 int LSystem::checkGrammar(vector<string> rules){
@@ -41,20 +43,19 @@ void LSystem::build(string axiom, vector<string> rules, int iterations){
 
     turtle.init(step, angle);
     turtle.moveto(250,250);
-    turtle.interpret(&window, result, constants);
+    turtle.interpret(result, constants);
 }
 
 void LSystem::loop(){
-  while (window.isOpen())
-  {
+  while (true){
       sf::Event event;
       while (window.pollEvent(event))
       {
           if (event.type == sf::Event::Closed)
               window.close();
       }
-      window.clear(sf::Color::Black);
-
+      window.clear();
+      turtle.draw(&window);
       window.display();
   }
 }
