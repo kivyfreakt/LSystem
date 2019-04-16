@@ -1,5 +1,5 @@
 #pragma once
-#include "LSystemGrammar.h"
+#include "LSystemGrammar.hpp"
 
 LSystemGrammar::LSystemGrammar(string axiom, vector<string> rul):condition(axiom),rules(rul){}
 LSystemGrammar::LSystemGrammar(vector<string> rul):rules(rul){}

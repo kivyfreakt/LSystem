@@ -16,8 +16,7 @@ class LSystem{
     void build(string, vector<string>, int);
     void loop();
   private:
-    sf::RenderWindow window(sf::VideoMode(800, 600), "LSystem");
-    sf::RenderTexture render;
+    sf::RenderWindow window;
     Turtle turtle;
     vector <char> constants;
     float step;

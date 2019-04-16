@@ -26,24 +26,19 @@ class Turtle{
     void turnLeft(float);
     void save();
     void restore();
-    void reset();
 
     // --------------- Drawing methods ---------------
 
-    void clear();
     void penDown();
     void penUp();
-    void drawLine(float, float);
-    void setColor(int, int, int);
 
   // --------------- Interpret methods ---------------
 
-    void interpret(string, vector<char>);
-    void init(sf::RenderTexture, float, float);
+    void interpret(sf::RenderWindow* ,string, vector<char>);
+    void init(float, float);
+
   private:
     // --------------- Getters and Setters ---------------
-    float getCoord(short);
-    void setCoords(float, float);
     float getDirection();
     void setDirection(float);
     bool getPen();
@@ -51,10 +46,11 @@ class Turtle{
 
     float step;
     float angle;
-    float x = 0.0; // coordinate of the turtle to the x-axis
-    float y = 0.0; // coordinate of the turtle to the y-axis
-    float direction = 90.0;  // he position of the turtle's head in space( in degrees )
+
+    sf::VertexArray vArray; //Representation of the script iteration as a set of vertexes
+    sf::Vector2f turtlePos = sf::Vector2f(0.f, 0.f); //Current position of the turtle
+    float direction = 0.0;  // he position of the turtle's head in space( in degrees )
     bool pen = false;
     stack <float> save_stack; // stack to store coordinates
-    sf::RenderTexture render;
+    sf::RenderWindow window;
 };

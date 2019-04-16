@@ -1,4 +1,4 @@
-#include "StochasticGrammar.h"
+#include "StochasticGrammar.hpp"
 
 void StochasticGrammar::iterate(int iterations = 1){
     vector<LRule> r = getRules(rules);

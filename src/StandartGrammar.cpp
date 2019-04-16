@@ -1,4 +1,4 @@
-#include "StandartGrammar.h"
+#include "StandartGrammar.hpp"
 
 void StandartGrammar::iterate(const int iterations = 1){
     vector<LRule> rul = getRules(rules);

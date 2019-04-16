@@ -1,9 +1,8 @@
-#include "LSystem.h"
+#include "LSystem.hpp"
 
 LSystem::LSystem(){
-  render.create(500, 500);
+  window.setSize(sf::Vector2u(640, 480));
 }
-
 
 int LSystem::checkGrammar(vector<string> rules){
   string r = rules[0];
@@ -40,10 +39,9 @@ void LSystem::build(string axiom, vector<string> rules, int iterations){
       result = ls.getResult();
     }
 
-    turtle.init(render, step, angle);
+    turtle.init(step, angle);
     turtle.moveto(250,250);
-    turtle.setColor(147, 112, 219);
-    turtle.interpret(result, constants);
+    turtle.interpret(&window, result, constants);
 }
 
 void LSystem::loop(){
@@ -56,10 +54,6 @@ void LSystem::loop(){
               window.close();
       }
       window.clear(sf::Color::Black);
-
-      // draw everything here...
-      // window.draw(...);
-      window.draw(render);
 
       window.display();
   }
