@@ -42,12 +42,11 @@ void LSystem::build(string axiom, vector<string> rules, int iterations){
     }
 
     turtle.init(step, angle);
-    turtle.moveto(250,250);
     turtle.interpret(result, constants);
 }
 
 void LSystem::loop(){
-  while (true){
+  while (window.isOpen()){
       sf::Event event;
       while (window.pollEvent(event))
       {

@@ -26,6 +26,7 @@ class Turtle{
     void turnLeft(float);
     void save();
     void restore();
+    float degToRad(float);
 
     // --------------- Drawing methods ---------------
 
@@ -40,8 +41,6 @@ class Turtle{
 
   private:
     // --------------- Getters and Setters ---------------
-    float getDirection();
-    void setDirection(float);
     bool getPen();
     void setPen(bool);
 
@@ -49,8 +48,9 @@ class Turtle{
     float angle;
 
     sf::VertexArray vArray; //Representation of the script iteration as a set of vertexes
-    sf::Vector2f turtlePos; //Current position of the turtle
-    float direction = 0.0;  // he position of the turtle's head in space( in degrees )
+    float x = 0.f; //Current position of the turtle
+    float y = 0.f; //Current position of the turtle
+    float direction = 0.f;  // he position of the turtle's head in space( in degrees )
     bool pen = true;
     stack <float> save_stack; // stack to store coordinates
 };

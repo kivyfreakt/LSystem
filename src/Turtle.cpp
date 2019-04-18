@@ -1,19 +1,12 @@
 #include "Turtle.hpp"
 
 Turtle::Turtle(){
-  turtlePos = sf::Vector2f(0.f, 0.f);
-  vArray.setPrimitiveType(sf::LinesStrip);
+  direction = degToRad(-90);
+  vArray.setPrimitiveType(sf::Lines);
   vArray.resize(0);
+  vArray.clear();
 }
 // --------------- Getters and Setters ---------------
-
-float Turtle::getDirection() {
-  return direction;
-}
-
-void Turtle::setDirection(float ndirection) {
-  direction = ndirection;
-}
 
 bool Turtle::getPen() {
   return pen;
@@ -32,47 +25,59 @@ void Turtle::init(float _step, float _angle){
 
 void Turtle::moveto(float x1, float y1){
   /* Move the turtle to a point with coordinates (x,y) */
-  turtlePos.x = x1;
-  turtlePos.y = y1;
+  x = x1;
+  y = y1;
 }
 
 void Turtle::move(float distance){
   /* Crawl distance steps forward */
   // calculate the new coordinates of the turtle
-  turtlePos.x = turtlePos.x + distance *cos(getDirection() * M_PI / 180);
-  turtlePos.y = turtlePos.y + distance *sin(getDirection() * M_PI / 180);
+  float dx = x + distance * cos(direction);
+  float dy = y + distance * sin(direction);
+
   //Append this position to the vertex vector
-  if (getPen())
-    vArray.append(sf::Vertex(turtlePos));
+  if (getPen()){
+    sf::Vertex tmp_x, tmp_y;
+    tmp_x.position = sf::Vector2f(x, y);
+    tmp_y.position = sf::Vector2f(dx, dy);
+    vArray.append(tmp_x);
+    vArray.append(tmp_y);
+  }
+
+  x = dx;
+  y = dy;
 }
 
 void Turtle::turnRight(float angle){
   /* Turn the turtle to the right side */
-    setDirection(getDirection()-angle);
+    direction -= degToRad(angle);
 }
 
 void Turtle::turnLeft(float angle){
   /* Turn the turtle to the left side */
-    setDirection(getDirection()+angle);
+    direction += degToRad(angle);
 }
 
 void Turtle::save(){
-  save_stack.push(turtlePos.x);
-  save_stack.push(turtlePos.y);
-  save_stack.push(getDirection());
+  save_stack.push(x);
+  save_stack.push(y);
+  save_stack.push(direction);
 }
 
 void Turtle::restore(){
-  setDirection(save_stack.top());
+  direction = save_stack.top();
   save_stack.pop();
   float ny = save_stack.top();
   save_stack.pop();
   float nx = save_stack.top();
   save_stack.pop();
-  turtlePos.x = nx;
-  turtlePos.y = ny;
+  x = nx;
+  y = ny;
 }
 
+float Turtle::degToRad(float deg){
+	return deg*0.0174532925;
+}
 
 // --------------- Drawing methods ---------------
 
