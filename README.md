@@ -8,10 +8,8 @@
     * [Definition](#definition)
     * [Development](#development)
 -   [Documentation](#documentation)
-    * [Initialization](#initialization)
-      + [Setting axiom](#setting-axiom)
-      + [Setting rules](#setting-rules)
-    * [Getting results](#getting-results)
+    * [Grammars](#lsystem-grammars)
+    * [LSystem](#lsystem)
     * [Program example](#program-example)
 -   [Examples](#examples)
     * [Plant](#plant)
@@ -38,9 +36,15 @@ where
 Once the L-system is defined, it begins to evolve according to its rules. The initial state of the L-system is its axiom. With further development, this line describing the state will change. The development of L-systems is cyclic. In each development cycle, a line is viewed from beginning to end, character by character. For each symbol, the rule for which the symbol serves as a precursor is searched. If no such rule is found, the symbol is left unchanged. In other words, for those x characters for which there is no explicit rule, the implicit rule applies: X→X. If the corresponding rule is found, the predecessor character is replaced by the following string from this rule.
 
 ## Documentation
-### Initialization
+
+## LSystem Grammars
+
+If you want to use only grammars, then use the following classes
 
 ```c++
+#include "src/StandartGrammar.cpp"
+#include "src/StochasticGrammar.cpp"
+
 StandartLSystem lsystem(options);
 StochasticLSystem lsys(options);
 ```
@@ -93,11 +97,6 @@ Also you could start with an empty L-System object, addRule() to edit the L-Syst
 lsystem.addRule("B","+A-BB--B-A++A+B");
 ```
 
-If you want the symbol not to be used by the interpreter, make it a constant:
-```c++
-lsystem.addConstant("C");
-```
-
 ### Getting results
 Now that we have set up our L-System set, we  can develop our L-System with iterate():
 
@@ -112,15 +111,7 @@ int n = 5;
 lsystem.iterate(n);
 ```
 
-Then you can interpret result with interpret():
-
-```c++
-float step = 3;
-float angle = 120;
-lsystem.interpret(step, angle);
-```
-
-Also you can just get result with getCondition():
+You can get result with getCondition():
 ```c++
 lsystem.addRule("B","+A-B-B-A+");
 lsystem.iterate();
@@ -128,34 +119,70 @@ lsystem.getCondition();
 // 'A+A-B-B-A+A'
 ```
 
+## LSystem
+
+If you want to use graphical interpretation, use the class
+
+```c++
+#include "src/LSystem.cpp"
+
+LSystem ls;
+```
+
+### Settings
+
+```c++
+ls.setStep(15.0); // set step
+ls.setAngle(36.0); // set angle
+```
+
+If you want the symbol not to be used by the interpreter, make it a constant:
+```c++
+ls.addConstant("C");
+```
+
+### Produce and interpret LSystem
+```c++
+ls.build(options);
+ls.loop();
+```
+
+where `options` may contain:
+- `axiom` A String to set the initial axiom
+- `rules` A Vector of the strings with variables and rules
+- `iterations` A Int parameter for the number of iterations
+
+
 ### Program example
 ```c++
-#include "src/StandartLSystem.cpp"
+#include "src/LSystem.cpp"
 
-const float step = 5.0;
-const float angle = 36.0;
+using namespace std;
 
-int main() {
-  StandartLSystem ls;
+vector<string> rules = {
+  "6 => 81++91----71[-81----61]++",
+  "7 => +81--91[---61--71]+",
+  "8 => -61++71[+++81++91]-",
+  "9 => --81++++61[+91++++71]--71",
+  "1 => "
+};
 
-  ls.setAxiom("[7]++[7]++[7]++[7]++[7]");
-  ls.addConstant('6');
-  ls.addConstant('7');
-  ls.addConstant('8');
-  ls.addConstant('9');
-  ls.addRule("6 => 81++91----71[-81----61]++");
-  ls.addRule("7 => +81--91[---61--71]+");
-  ls.addRule("8 => -61++71[+++81++91]-");
-  ls.addRule("9 => --81++++61[+91++++71]--71");
-  ls.addRule("1 => ");
+int main( int argc, char *argv[]) {
+  	LSystem ls;
 
+    ls.addConstant('6');
+    ls.addConstant('7');
+    ls.addConstant('8');
+    ls.addConstant('9');
 
-  ls.moveto(250,250);
+    ls.setStep(15.0);
+    ls.setAngle(36.0);
 
-  ls.setColor(147, 112, 219);
-  ls.iterate(7);
-  ls.interpret(step, angle);
+    ls.build("[7]++[7]++[7]++[7]++[7]", rules, 5);
+    ls.loop();
   return 0;
+}
+
 }
 ```
 #### Output
@@ -172,7 +199,7 @@ Angle - 25 degrees
 
 |     Axiom     |     Rules     |
 | ------------- | ------------- |
-| X  | X → F-[[X]+X]+F[+FX]-X<br> F → FF |
+| X  | X => F-[[X]+X]+F[+FX]-X<br> F => FF |
 
 ### Heighway dragon
 
@@ -183,7 +210,7 @@ Angle - 90 degrees
 
 |     Axiom     |     Rules     |
 | ------------- | ------------- |
-| FX  | X → X+YF+<br> Y → -FX-Y |
+| FX  | X => X+YF+<br> Y => -FX-Y |
 
 ### Pleasant Error
 
@@ -194,7 +221,7 @@ Angle - 72 degrees
 
 |     Axiom     |     Rules     |
 | ------------- | ------------- |
-| F-F-F-F-F  | F → F-F++F+F-F-F |
+| F-F-F-F-F  | F => F-F++F+F-F-F |
 
 ### Plant2
 Run plant2_example.cpp to get this example
