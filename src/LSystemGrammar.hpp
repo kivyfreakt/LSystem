@@ -15,9 +15,6 @@ using namespace std;
 class LSystemGrammar{
   public:
     LSystemGrammar(string, vector<string>);
-    LSystemGrammar(vector<string>);
-    LSystemGrammar(string);
-    LSystemGrammar();
     void addRule(string);
     void setAxiom(const string &);
     string getResult();

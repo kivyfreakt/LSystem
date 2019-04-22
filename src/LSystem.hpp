@@ -13,6 +13,7 @@ class LSystem{
     void addConstant(char);
     void setStep(float);
     void setAngle(float);
+    void save(string);
     void build(string, vector<string>, int);
     void loop();
   private:

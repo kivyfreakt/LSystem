@@ -28,6 +28,15 @@ void LSystem::setAngle(float _angle){
   angle = _angle;
 }
 
+void LSystem::save(string path){
+  sf::Vector2u windowSize = window.getSize();
+  sf::Texture texture;
+  texture.create(windowSize.x, windowSize.y);
+  texture.update(window);
+  sf::Image screenshot = texture.copyToImage();
+  screenshot.saveToFile(path);
+}
+
 void LSystem::build(string axiom, vector<string> rules, int iterations){
     string result;
     if(checkGrammar(rules) == 0){
