@@ -4,7 +4,8 @@
 * The class is used to interpret the lsystem alphabet
 * into turtle drawing commands
 */
-#pragma once
+#ifndef TURTLE_H
+#define TURTLE_H
 
 #include <stack>
 #include <vector>
@@ -13,6 +14,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
+
+#include "Filter.h"
 
 using namespace std;
 
@@ -35,7 +38,7 @@ class Turtle{
 
   // --------------- Interpret methods ---------------
 
-    void interpret(string, vector<char>);
+    void interpret(Filter*, vector<char>);
     void init(float, float);
     void draw(sf::RenderWindow *);
 
@@ -54,3 +57,5 @@ class Turtle{
     bool pen = true;
     stack <float> save_stack; // stack to store coordinates
 };
+
+#endif

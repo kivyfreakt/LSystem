@@ -1,0 +1,3 @@
+g++ -c src/*.cpp main.cpp
+g++ *.o -o main -lsfml-graphics -lsfml-window -lsfml-system
+./main

@@ -1,4 +1,4 @@
-#include "Turtle.hpp"
+#include "Turtle.h"
 
 Turtle::Turtle(){
   direction = degToRad(-90);
@@ -97,29 +97,31 @@ void Turtle::penUp(){
 
 // --------------- Interpret methods ---------------
 
-void Turtle::interpret(string result, vector<char> constants){
+void Turtle::interpret(Filter* result, vector<char> constants){
     /* interpretation of the alphabet in a certain action turtles */
-    for (unsigned int i = 0, size = result.size(); i < size ; ++i) {
-      switch (result[i]) {
-        case '+':
-          turnLeft(angle);
-        break;
-        case '-':
-          turnRight(angle);
-        break;
-        case '[':
-          save();
-        break;
-        case ']':
-          restore();
-        break;
-        default:
-          if (find(constants.begin(), constants.end(), result[i]) == constants.end())
-            move(step);
-        break;
-      }
+    char c;
+    while ((c = result->getc()) != -1)
+    {
+        switch (c) {
+            case '+':
+                turnLeft(angle);
+            break;
+            case '-':
+                turnRight(angle);
+            break;
+            case '[':
+                save();
+            break;
+            case ']':
+                restore();
+            break;
+            default:
+                if (find(constants.begin(), constants.end(), c) == constants.end())
+                    move(step);
+            break;
+        }
     }
-  }
+}
 
 void Turtle::draw(sf::RenderWindow *disp){
   disp->draw(vArray);
