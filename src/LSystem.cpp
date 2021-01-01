@@ -3,8 +3,9 @@
 LSystem::LSystem()
 {
     window.create(sf::VideoMode(800, 800), "LSystem");
-    sf::View myView(sf::Vector2f(0.f,0.f), sf::Vector2f(800.f, 800.f));
-    window.setView(myView);
+    window.setVerticalSyncEnabled(true);
+    sf::View view(sf::Vector2f(0.f,0.f), sf::Vector2f(800.f, 800.f));
+    window.setView(view);
 }
 
 int LSystem::checkGrammar(vector<string> rules)
@@ -62,12 +63,36 @@ void LSystem::build(string axiom, vector<string> rules, int iterations){
 }
 
 void LSystem::loop(){
-    while (window.isOpen()){
-        sf::Event event;
+    sf::Event event;
+    float w, h;
+    while (window.isOpen())
+    {
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
+            switch (event.type)
+            {
+                case sf::Event::Closed:
+                    window.close();
+                break;
+                case sf::Event::Resized:
+                    w = static_cast<float>(event.size.width);
+                    h = static_cast<float>(event.size.height);
+                    window.setView(
+                        sf::View(
+                            sf::Vector2f(w / 2.0, h / 2.0),
+                            sf::Vector2f(w, h)
+                        )
+                    );
+                break;
+                case sf::Event::MouseWheelScrolled:
+                    sf::View view = window.getView();
+                    if (event.mouseWheelScroll.delta > 0)
+                        view.zoom(0.99);
+                    else
+                        view.zoom(1.01);
+                    window.setView(view);
+                break;
+            }
         }
         window.clear();
         turtle.draw(&window);
