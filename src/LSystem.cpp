@@ -52,11 +52,11 @@ void LSystem::build(string axiom, vector<string> rules, int iterations){
         ls.iterate(iterations);
         result = ls.getResult();
     }
-    // else{
-    //   StochasticGrammar ls(axiom, rules);
-    //   ls.iterate(iterations);
-    //   result = ls.getResult();
-    // }
+    else{
+        StochasticGrammar ls(axiom, rules);
+        ls.iterate(iterations);
+        result = ls.getResult();
+    }
 
     turtle.init(step, angle);
     turtle.interpret(result, constants);

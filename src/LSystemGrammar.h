@@ -21,6 +21,7 @@ class LSystemGrammar
     public:
         LSystemGrammar(string, vector<string>);
         Filter* getResult();
+        // ~LSystemGrammar(){delete source;}
     protected:
         Filter *source; // source of chars
         vector<LRule> rules; // rules of the lsystem

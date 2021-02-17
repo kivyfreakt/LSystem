@@ -1,7 +1,6 @@
 #include "Turtle.h"
 
 Turtle::Turtle(){
-  direction = degToRad(-90);
   vArray.setPrimitiveType(sf::Lines);
   vArray.resize(0);
   vArray.clear();

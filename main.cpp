@@ -15,11 +15,11 @@ int main(int argc, char *argv[])
 {
   	LSystem ls;
 
-    ls.setStep(0.5);
+    ls.setStep(100);
     ls.setAngle(60.0);
 
-    ls.build("F++F++F", rules, 7);
-    
+    ls.build("F++F++F", rules, 1);
+
     ls.loop();
   return 0;
 }

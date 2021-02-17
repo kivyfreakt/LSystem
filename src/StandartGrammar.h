@@ -9,7 +9,7 @@ class StandartGrammar : public LSystemGrammar
 {
     public:
         StandartGrammar(string axiom, vector<string> rul):LSystemGrammar(axiom,rul){}
-        void iterate(const int);
+        void iterate(int);
 };
 
 #endif

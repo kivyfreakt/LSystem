@@ -1,8 +1,7 @@
-// #include "StochasticGrammar.hpp"
+// #include "StochasticGrammar.h"
 //
 // void StochasticGrammar::iterate(int iterations = 1){
-//     vector<LRule> r = getRules(rules);
-//     map<float, LRule> rul = buildRuleRange(r);
+//     map<float, LRule> rul = buildRuleRange(rules);
 //     srand(time(NULL));
 //     for (unsigned int i = 0; i < iterations ; ++i){
 //         string new_cond;
